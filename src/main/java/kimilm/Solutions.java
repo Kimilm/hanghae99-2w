@@ -1,6 +1,7 @@
 package kimilm;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Solutions {
     // https://programmers.co.kr/learn/courses/30/lessons/12901
@@ -110,5 +111,18 @@ public class Solutions {
         return sb.chars()
                 .map(Character::getNumericValue)
                 .toArray();
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12933
+    public long 정수_내림차순으로_배치하기(long n) {
+        String str = String.valueOf(n).chars()
+                .map(Character::getNumericValue)
+                .boxed()
+                .sorted(Collections.reverseOrder())
+                .collect(Collectors.toList())
+                .toString()
+                .replaceAll("[^0-9]","");
+
+        return Long.parseLong(str);
     }
 }

@@ -33,4 +33,10 @@ class SolutionsTest {
         int[] result = solution.자연수_뒤집어_배열로_만들기(12345);
         System.out.println(Arrays.toString(result));
     }
+
+    @Test
+    void 정수_내림차순으로_배치하기() {
+        long result = solution.정수_내림차순으로_배치하기(118372);
+        System.out.println(result);
+    }
 }
