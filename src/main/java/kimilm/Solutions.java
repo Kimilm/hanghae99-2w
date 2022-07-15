@@ -81,4 +81,24 @@ public class Solutions {
                 .mapToInt(Integer::parseInt)
                 .sum();
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12930
+    public String 이상한_문자_만들기(String s) {
+        // 공백이 두개면 두개를 남겨야 함
+        char[] chars = s.toUpperCase().toCharArray();
+
+        int flag = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == ' ') {
+                flag = 0;
+                continue;
+            }
+            if (flag % 2 == 1) {
+                chars[i] = Character.toLowerCase(chars[i]);
+            }
+            ++flag;
+        }
+
+        return new String(chars);
+    }
 }

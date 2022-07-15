@@ -19,4 +19,10 @@ class SolutionsTest {
         String result = solution.수박수박수박수박수박수(3);
         System.out.println(result);
     }
+
+    @Test
+    void 이상한_문자_만들기() {
+        String result = solution.이상한_문자_만들기("try hello world");
+        System.out.println(result);
+    }
 }
