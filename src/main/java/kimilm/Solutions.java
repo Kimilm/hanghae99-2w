@@ -124,4 +124,20 @@ public class Solutions {
 
         return Long.parseLong(str);
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12935
+    public int[] 제일_작은_수_제거하기(int[] arr) {
+        List<Integer> list = Arrays.stream(arr)
+                .boxed()
+                .collect(Collectors.toList());
+
+        Integer min = Collections.min(list);
+        list.remove(min);
+
+        if (list.size() == 0) {
+            list.add(-1);
+        }
+
+        return list.stream().mapToInt(Integer::intValue).toArray();
+    }
 }
