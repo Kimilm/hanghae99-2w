@@ -119,9 +119,8 @@ public class Solutions {
                 .map(Character::getNumericValue)
                 .boxed()
                 .sorted(Collections.reverseOrder())
-                .collect(Collectors.toList())
-                .toString()
-                .replaceAll("[^0-9]","");
+                .map(String::valueOf)
+                .collect(Collectors.joining());
 
         return Long.parseLong(str);
     }
