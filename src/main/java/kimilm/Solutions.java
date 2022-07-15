@@ -171,4 +171,10 @@ public class Solutions {
 
         return -1;
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12947
+    public boolean 하샤드_수(int x) {
+        int sum = 자릿수_더하기(x);
+        return x % sum == 0;
+    }
 }
