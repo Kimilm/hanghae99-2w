@@ -151,4 +151,24 @@ public class Solutions {
         }
         return (long) Math.pow(sqrt + 1, 2);
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12943
+    public int 콜라즈_추측(int num) {
+        long longNum = num;
+        int answer = 0;
+
+        while(answer < 500) {
+            if (longNum == 1) {
+                return answer;
+            }
+            if (longNum % 2 == 0) {
+                longNum /= 2;
+            } else {
+                longNum = longNum * 3 + 1;
+            }
+            ++answer;
+        }
+
+        return -1;
+    }
 }
