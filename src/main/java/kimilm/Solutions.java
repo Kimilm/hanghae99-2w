@@ -1,8 +1,6 @@
 package kimilm;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Solutions {
     // https://programmers.co.kr/learn/courses/30/lessons/12901
@@ -51,5 +49,28 @@ public class Solutions {
         }
 
         return sb.toString();
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/42576
+    public String 완주하지_못한_선수(String[] participant, String[] completion) {
+        Map<String, Integer> marathon = new HashMap<>();
+
+        for(String person : participant) {
+            marathon.put(person, marathon.getOrDefault(person, 0) + 1);
+        }
+
+        for(String person : completion) {
+            marathon.put(person, marathon.get(person) - 1);
+        }
+
+        String answer = "";
+
+        for(Map.Entry<String, Integer> entry : marathon.entrySet()) {
+            if (entry.getValue() == 1) {
+                answer = entry.getKey();
+            }
+        }
+
+        return answer;
     }
 }
