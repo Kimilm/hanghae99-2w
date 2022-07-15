@@ -24,7 +24,7 @@ public class Solutions {
     public int[] 나누어_떨어지는_숫자_배열(int[] arr, int divisor) {
         List<Integer> list = new ArrayList<>();
 
-        for(int num : arr) {
+        for (int num : arr) {
             if (num % divisor == 0) {
                 list.add(num);
             }
@@ -41,8 +41,8 @@ public class Solutions {
     }
 
     // https://programmers.co.kr/learn/courses/30/lessons/12922
-    public String 수박수박수박수박수박수 (int n) {
-        String[] watermelon = new String[] {"수", "박"};
+    public String 수박수박수박수박수박수(int n) {
+        String[] watermelon = new String[]{"수", "박"};
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < n; i++) {
@@ -56,17 +56,17 @@ public class Solutions {
     public String 완주하지_못한_선수(String[] participant, String[] completion) {
         Map<String, Integer> marathon = new HashMap<>();
 
-        for(String person : participant) {
+        for (String person : participant) {
             marathon.put(person, marathon.getOrDefault(person, 0) + 1);
         }
 
-        for(String person : completion) {
+        for (String person : completion) {
             marathon.put(person, marathon.get(person) - 1);
         }
 
         String answer = "";
 
-        for(Map.Entry<String, Integer> entry : marathon.entrySet()) {
+        for (Map.Entry<String, Integer> entry : marathon.entrySet()) {
             if (entry.getValue() == 1) {
                 answer = entry.getKey();
             }
@@ -119,10 +119,62 @@ public class Solutions {
                 .map(Character::getNumericValue)
                 .boxed()
                 .sorted(Collections.reverseOrder())
-                .collect(Collectors.toList())
-                .toString()
-                .replaceAll("[^0-9]","");
+                .map(String::valueOf)
+                .collect(Collectors.joining());
 
         return Long.parseLong(str);
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12935
+    public int[] 제일_작은_수_제거하기(int[] arr) {
+        List<Integer> list = Arrays.stream(arr)
+                .boxed()
+                .collect(Collectors.toList());
+
+        Integer min = Collections.min(list);
+        list.remove(min);
+
+        if (list.size() == 0) {
+            list.add(-1);
+        }
+
+        return list.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12934
+    public long 정수_제곱근_판별(long n) {
+        long sqrt = (long) Math.sqrt(n);
+        long pow = (long) Math.pow(sqrt, 2);
+
+        if (pow != n) {
+            return -1;
+        }
+        return (long) Math.pow(sqrt + 1, 2);
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12943
+    public int 콜라즈_추측(int num) {
+        long longNum = num;
+        int answer = 0;
+
+        while(answer < 500) {
+            if (longNum == 1) {
+                return answer;
+            }
+            if (longNum % 2 == 0) {
+                longNum /= 2;
+            } else {
+                longNum = longNum * 3 + 1;
+            }
+            ++answer;
+        }
+
+        return -1;
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12947
+    public boolean 하샤드_수(int x) {
+        int sum = 자릿수_더하기(x);
+        return x % sum == 0;
     }
 }
