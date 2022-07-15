@@ -73,4 +73,12 @@ public class Solutions {
 
         return answer;
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12931
+    public int 자릿수_더하기(int n) {
+        String str = String.valueOf(n);
+        return Arrays.stream(str.split(""))
+                .mapToInt(Integer::parseInt)
+                .sum();
+    }
 }
