@@ -101,4 +101,14 @@ public class Solutions {
 
         return new String(chars);
     }
+
+    // https://school.programmers.co.kr/learn/courses/30/lessons/12932
+    public int[] 자연수_뒤집어_배열로_만들기(long n) {
+        String str = String.valueOf(n);
+        StringBuilder sb = new StringBuilder(str).reverse();
+
+        return sb.chars()
+                .map(Character::getNumericValue)
+                .toArray();
+    }
 }
