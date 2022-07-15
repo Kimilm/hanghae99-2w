@@ -1,6 +1,7 @@
 package kimilm;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Solutions {
     // https://programmers.co.kr/learn/courses/30/lessons/12901
@@ -72,5 +73,56 @@ public class Solutions {
         }
 
         return answer;
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12931
+    public int 자릿수_더하기(int n) {
+        String str = String.valueOf(n);
+        return Arrays.stream(str.split(""))
+                .mapToInt(Integer::parseInt)
+                .sum();
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12930
+    public String 이상한_문자_만들기(String s) {
+        // 공백이 두개면 두개를 남겨야 함
+        char[] chars = s.toUpperCase().toCharArray();
+
+        int flag = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == ' ') {
+                flag = 0;
+                continue;
+            }
+            if (flag % 2 == 1) {
+                chars[i] = Character.toLowerCase(chars[i]);
+            }
+            ++flag;
+        }
+
+        return new String(chars);
+    }
+
+    // https://school.programmers.co.kr/learn/courses/30/lessons/12932
+    public int[] 자연수_뒤집어_배열로_만들기(long n) {
+        String str = String.valueOf(n);
+        StringBuilder sb = new StringBuilder(str).reverse();
+
+        return sb.chars()
+                .map(Character::getNumericValue)
+                .toArray();
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12933
+    public long 정수_내림차순으로_배치하기(long n) {
+        String str = String.valueOf(n).chars()
+                .map(Character::getNumericValue)
+                .boxed()
+                .sorted(Collections.reverseOrder())
+                .collect(Collectors.toList())
+                .toString()
+                .replaceAll("[^0-9]","");
+
+        return Long.parseLong(str);
     }
 }
