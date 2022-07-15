@@ -3,6 +3,28 @@ package yeaseul;
 import java.util.*;
 
 public class Solutions {
+    // https://school.programmers.co.kr/learn/courses/30/lessons/12930
+    public String 이상한_문자_만들기(String s){
+        StringBuilder sb = new StringBuilder();
+        String[] sArr = s.split("");
+
+        int j=0;
+        for(int i=0; i<sArr.length; i++){
+            if(sArr[i].equals(" ")) {
+                sb.append(" ");
+                j=0;
+            }else{
+                if(j%2 == 0){
+                    sb.append(sArr[i].toUpperCase());
+                }else{
+                    sb.append(sArr[i].toLowerCase());
+                }
+                j++;
+            }
+        }
+        return new String(sb);
+    }
+
     // https://programmers.co.kr/learn/courses/30/lessons/12901
     public String _2016년(int a, int b) {
         // String[] day = {"THU","FRI","SAT", "SUN","MON","TUE","WED"};

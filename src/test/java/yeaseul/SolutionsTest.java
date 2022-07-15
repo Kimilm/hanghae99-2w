@@ -9,6 +9,13 @@ class SolutionsTest {
     private Solutions solution = new Solutions();
 
     @Test
+    void 이상한_문자_만들기() {
+        String s = "try hello world";
+        String result = solution.이상한_문자_만들기(s);
+        System.out.println(result);
+    }
+
+    @Test
     void _2016년() {
         String result = solution._2016년(5, 24);
         System.out.println(result);
