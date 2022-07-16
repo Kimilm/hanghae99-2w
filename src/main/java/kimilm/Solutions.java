@@ -261,4 +261,19 @@ public class Solutions {
         // 리스트를 배열로 변환하여 리턴
         return queue.stream().mapToInt(Integer::intValue).toArray();
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/68644
+    public int[] 두_개_뽑아서_더하기(int[] numbers) {
+        // 값을 저장할 집합 선언
+        Set<Integer> set = new HashSet<>();
+        // 모든 경우의 수
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = i + 1; j < numbers.length; j++) {
+                // 더해서 집합에 저장
+                set.add(numbers[i] + numbers[j]);
+            }
+        }
+        // 집합을 배열로 변경하고 정렬하여 리턴
+        return set.stream().mapToInt(Integer::intValue).sorted().toArray();
+    }
 }
