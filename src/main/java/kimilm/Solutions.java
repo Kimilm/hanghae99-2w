@@ -371,4 +371,21 @@ public class Solutions {
         // 내가 맞춘 번호 개수 + 낙서된 번호 == 최고 순위, 내가 맞춘 번호 개수 == 최저 순위
         return new int[]{prize[signed + correct], prize[correct]};
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12915
+    public String[] 문자열_내_마음대로_정렬하기(String[] strings, int n) {
+        // 내맘대로 정렬
+        Arrays.sort(strings, (s1, s2) -> {
+            // n번 인덱스 값을 비교
+            int compare = s1.charAt(n) - s2.charAt(n);
+            // 같으면 사전순
+            if (compare == 0) {
+                return s1.compareTo(s2);
+            }
+            // 다르면 오름차순
+            return compare;
+        });
+        //리턴
+        return strings;
+    }
 }
