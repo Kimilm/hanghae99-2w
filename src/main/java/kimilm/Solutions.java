@@ -276,4 +276,133 @@ public class Solutions {
         // 집합을 배열로 변경하고 정렬하여 리턴
         return set.stream().mapToInt(Integer::intValue).sorted().toArray();
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/42840
+    public int[] 모의고사(int[] answers) {
+        // 수포자 리스트 생성
+        List<NoMath> students = new ArrayList<>();
+        // 각자 찍는 방식대로 초기화
+        students.add(new NoMath(new int[]{1, 2, 3, 4, 5}, 1));
+        students.add(new NoMath(new int[]{2, 1, 2, 3, 2, 4, 2, 5}, 2));
+        students.add(new NoMath(new int[]{3, 3, 1, 1, 2, 2, 4, 4, 5, 5}, 3));
+        // 가장 많이 맞춘 학생 점수
+        int topScore = 0;
+        // 성적 산출
+        for (NoMath student : students) {
+            student.marking(answers);
+            topScore = Integer.max(topScore, student.getScore());
+        }
+        // 정답용 학생 번호 리스트
+        List<Integer> answer = new ArrayList<>();
+        // 가장 많이 맞춘 학생들만 남기기
+        for (NoMath student : students) {
+            if (student.getScore() == topScore) {
+                answer.add(student.getStudentNum());
+            }
+        }
+        // 학생번호 배열로 바꿔서 리턴
+        return answer.stream()
+                .mapToInt(Integer::intValue)
+                .toArray();
+    }
+
+    class NoMath {
+        private int[] fork;
+        private int studentNum;
+        private int score;
+
+        // 생성자
+        public NoMath(int[] fork, int studentNum) {
+            this.fork = fork;
+            this.studentNum = studentNum;
+            this.score = 0;
+        }
+
+        // 성적 산출 함수
+        public void marking(int[] answers) {
+            // fork 배열에서 사용될 인덱스
+            int index = 0;
+            // 채점
+            for (int i = 0; i < answers.length; i++) {
+                // 답이 맞았으면 score 증가
+                if (answers[i] == fork[index]) {
+                    ++score;
+                }
+                // fork 배열 인덱스 조정
+                index = (index + 1) % fork.length;
+            }
+        }
+
+        // 학생 번호
+        public int getStudentNum() {
+            return studentNum;
+        }
+
+        // 성적
+        public int getScore() {
+            return score;
+        }
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/77484
+    public int[] 로또의_최고_순위와_최저_순위(int[] lottos, int[] win_nums) {
+        // 당첨 등수 저장
+        int[] prize = {6, 6, 5, 4, 3, 2, 1};
+        // 당첨 번호 저장용 Set 선언
+        Set<Integer> lottoSet = new HashSet<>();
+        // 당첨번호 저장
+        for (int num : win_nums) {
+            lottoSet.add(num);
+        }
+        // 낙서된 숫자 저장 변수
+        int signed = 0;
+        // 맞춘 번호 체크
+        for (int num : lottos) {
+            if (num == 0) {
+                // 낙서된 번호는 체크
+                ++signed;
+            } else {
+                // 맞춘 번호는 제거
+                lottoSet.remove(num);
+            }
+        }
+        // 6개 - 남은 당첨 번호 개수 == 내가 맞춘 번호 개수
+        int correct = 6 - lottoSet.size();
+        // 내가 맞춘 번호 개수 + 낙서된 번호 == 최고 순위, 내가 맞춘 번호 개수 == 최저 순위
+        return new int[]{prize[signed + correct], prize[correct]};
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12915
+    public String[] 문자열_내_마음대로_정렬하기(String[] strings, int n) {
+        // 내맘대로 정렬
+        Arrays.sort(strings, (s1, s2) -> {
+            // n번 인덱스 값을 비교
+            int compare = s1.charAt(n) - s2.charAt(n);
+            // 같으면 사전순
+            if (compare == 0) {
+                return s1.compareTo(s2);
+            }
+            // 다르면 오름차순
+            return compare;
+        });
+        //리턴
+        return strings;
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12917
+    public String 문자열_내림차순으로_배치하기(String s) {
+        // char 배열로 변경
+        char[] array = s.toCharArray();
+        // char 순으로 정렬
+        Arrays.sort(array);
+        // 뒤집기
+        int n = s.length();
+        char[] reverse = new char[n];
+        for (int i = 0, j = n - 1; i < n; i++, --j) {
+            reverse[i] = array[j];
+        }
+        // 문자열로 바꿔서 리턴
+        return new String(reverse);
+        // 스트링 빌더로 뒤집으면 되는구나....
+    }
 }

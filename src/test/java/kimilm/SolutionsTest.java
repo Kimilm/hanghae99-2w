@@ -39,4 +39,10 @@ class SolutionsTest {
         long result = solution.정수_내림차순으로_배치하기(118372);
         System.out.println(result);
     }
+
+    @Test
+    void 모의고사() {
+        int[] result = solution.모의고사(new int[]{1, 2, 3, 4, 5});
+        System.out.println(Arrays.toString(result));
+    }
 }
