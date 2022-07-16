@@ -246,4 +246,19 @@ public class Solutions {
         // 3진법 문자열 -> 10진법 숫자로 변환하여 리턴
         return Integer.parseInt(num, 3);
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12906
+    public int[] 같은_숫자는_싫어(int[] arr) {
+        // 큐 선언
+        LinkedList<Integer> queue = new LinkedList<>();
+        // 배열의 원소만큼 반복하면서
+        for (int element : arr) {
+            // 큐의 맨 끝 원소와 다르다면 입력
+            if (queue.isEmpty() || queue.getLast() != element) {
+                queue.add(element);
+            }
+        }
+        // 리스트를 배열로 변환하여 리턴
+        return queue.stream().mapToInt(Integer::intValue).toArray();
+    }
 }
