@@ -1,11 +1,10 @@
 package kimilm;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SolutionsTest {
     private Solutions solution = new Solutions();
@@ -44,5 +43,17 @@ class SolutionsTest {
     void 모의고사() {
         int[] result = solution.모의고사(new int[]{1, 2, 3, 4, 5});
         System.out.println(Arrays.toString(result));
+    }
+
+    @Test
+    void 소수_만들기() {
+        int result = solution.소수_만들기(new int[]{1, 2, 7, 6, 4});
+        assertEquals(4, result);
+    }
+
+    @Test
+    void 신규_아이디_추천() {
+        String result = solution.신규_아이디_추천("...!@BaT#*..y.abcdefghijklm");
+        assertEquals("bat.y.abcdefghi", result);
     }
 }

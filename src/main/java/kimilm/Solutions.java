@@ -405,4 +405,136 @@ public class Solutions {
         return new String(reverse);
         // 스트링 빌더로 뒤집으면 되는구나....
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/81301
+    public int 숫자_문자열과_영단어(String s) {
+        // 변경할 단어 저장
+        // 배열에 담아도 똑같구나..q;
+        Map<String, String> wordMap = new HashMap<>();
+        wordMap.put("zero", "0");
+        wordMap.put("one", "1");
+        wordMap.put("two", "2");
+        wordMap.put("three", "3");
+        wordMap.put("four", "4");
+        wordMap.put("five", "5");
+        wordMap.put("six", "6");
+        wordMap.put("seven", "7");
+        wordMap.put("eight", "8");
+        wordMap.put("nine", "9");
+        // 순회하며 변경
+        for (Map.Entry<String, String> entry : wordMap.entrySet()) {
+            s = s.replaceAll(entry.getKey(), entry.getValue());
+        }
+        // 숫자로 바꿔서 리턴
+        return Integer.parseInt(s);
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12977
+    public int 소수_만들기(int[] nums) {
+        // 배열 길이
+        int n = nums.length;
+        // 소수 카운트 변수
+        int count = 0;
+        // 모든 경우의 수
+        for (int i = 0; i < n - 2; i++) {
+            for (int j = i + 1; j < n - 1; j++) {
+                for (int k = j + 1; k < n; k++) {
+                    // 숫자 3개를 더해서
+                    int num = nums[i] + nums[j] + nums[k];
+                    // 소수라면 카운트 증가
+                    if (isPrime(num)) {
+                        ++count;
+                    }
+                }
+            }
+        }
+        // 카운트 리턴
+        return count;
+    }
+
+    // 소수 판별 함수
+    public boolean isPrime(int n) {
+        // 제곱근 구하기
+        int sqrt = (int) Math.sqrt(n);
+        // 2부터 제곱근까지
+        for (int i = 2; i <= sqrt; i++) {
+            // 나누어 떨어진다면 소수가 아님
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12926
+    public String 시저_암호(String s, int n) {
+        // 알파벳 26자
+        int alphabet = 26;
+        // 스페이스 32
+        int space = 32;
+        // 대문자 A 65
+        int upper = 65;
+        // 소문자 a 97
+        int lower = 97;
+        // char 배열로 변환
+        char[] chars = s.toCharArray();
+        // 각각의 원소마다
+        for (int i = 0; i < chars.length; i++) {
+            // 스페이스라면 밀지 않음
+            if (chars[i] == space) {
+                continue;
+            }
+            // 대문자 소문자 여부 확인
+            boolean isLower = chars[i] >= lower;
+            // 0 - 26 범위로 변경
+            chars[i] = (char) (isLower ? chars[i] - lower : chars[i] - upper);
+            // n 만큼 밀기
+            chars[i] += n;
+            // 0 - 26 범위로 조정
+            chars[i] %= alphabet;
+            // 소문자 97~, 대문자 65~ 범위로 변경
+            chars[i] = (char) (isLower ? chars[i] + lower : chars[i] + upper);
+        }
+        // 문자열로 변환하여 리턴
+        return new String(chars);
+        // Character.isLowerCase, Character.isUpperCase, (ch - 'a' + n) % 26 + 'a'
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/72410
+    public String 신규_아이디_추천(String new_id) {
+        // 1단계 new_id의 모든 대문자를 대응되는 소문자로 치환합니다.
+        new_id = new_id.toLowerCase();
+        // 2단계 new_id에서 알파벳 소문자, 숫자, 빼기(-), 밑줄(_), 마침표(.)를 제외한 모든 문자를 제거합니다.
+        new_id = new_id.replaceAll("[^a-z0-9-_.]", "");
+        // 3단계 new_id에서 마침표(.)가 2번 이상 연속된 부분을 하나의 마침표(.)로 치환합니다.
+        new_id = new_id.replaceAll("\\.{2,}", ".");
+        // 4단계 new_id에서 마침표(.)가 처음이나 끝에 위치한다면 제거합니다.
+        if(new_id.startsWith(".")) {
+            new_id = new_id.substring(1);
+        }
+        if(new_id.endsWith(".")) {
+            new_id = new_id.substring(0, new_id.length() - 1);
+        }
+        // 5단계 new_id가 빈 문자열이라면, new_id에 "a"를 대입합니다.
+        if(new_id.isEmpty()) {
+            new_id = "a";
+        }
+        // 6단계 new_id의 길이가 16자 이상이면, new_id의 첫 15개의 문자를 제외한 나머지 문자들을 모두 제거합니다.
+        //         만약 제거 후 마침표(.)가 new_id의 끝에 위치한다면 끝에 위치한 마침표(.) 문자를 제거합니다.
+        if(new_id.length() > 15) {
+            new_id = new_id.substring(0, 15);
+        }
+        if(new_id.endsWith(".")) {
+            new_id = new_id.substring(0, new_id.length() - 1);
+        }
+        // 7단계 new_id의 길이가 2자 이하라면, new_id의 마지막 문자를 new_id의 길이가 3이 될 때까지 반복해서 끝에 붙입니다.
+        if (new_id.length() < 3) {
+            while(new_id.length() != 3) {
+                new_id += new_id.charAt(new_id.length() - 1);
+            }
+        }
+        // 리턴
+        return new_id;
+        // '.'이 2개 이상 -> "[.]{2,}", 시작이나 끝이 '.' -> "^[.]|[.]$"
+    }
 }
