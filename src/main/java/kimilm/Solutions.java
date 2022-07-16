@@ -388,4 +388,21 @@ public class Solutions {
         //리턴
         return strings;
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12917
+    public String 문자열_내림차순으로_배치하기(String s) {
+        // char 배열로 변경
+        char[] array = s.toCharArray();
+        // char 순으로 정렬
+        Arrays.sort(array);
+        // 뒤집기
+        int n = s.length();
+        char[] reverse = new char[n];
+        for (int i = 0, j = n - 1; i < n; i++, --j) {
+            reverse[i] = array[j];
+        }
+        // 문자열로 바꿔서 리턴
+        return new String(reverse);
+        // 스트링 빌더로 뒤집으면 되는구나....
+    }
 }
