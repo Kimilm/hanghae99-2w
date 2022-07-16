@@ -405,4 +405,27 @@ public class Solutions {
         return new String(reverse);
         // 스트링 빌더로 뒤집으면 되는구나....
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/81301
+    public int 숫자_문자열과_영단어(String s) {
+        // 변경할 단어 저장
+        // 배열에 담아도 똑같구나..q;
+        Map<String, String> wordMap = new HashMap<>();
+        wordMap.put("zero", "0");
+        wordMap.put("one", "1");
+        wordMap.put("two", "2");
+        wordMap.put("three", "3");
+        wordMap.put("four", "4");
+        wordMap.put("five", "5");
+        wordMap.put("six", "6");
+        wordMap.put("seven", "7");
+        wordMap.put("eight", "8");
+        wordMap.put("nine", "9");
+        // 순회하며 변경
+        for (Map.Entry<String, String> entry : wordMap.entrySet()) {
+            s = s.replaceAll(entry.getKey(), entry.getValue());
+        }
+        // 숫자로 바꿔서 리턴
+        return Integer.parseInt(s);
+    }
 }
