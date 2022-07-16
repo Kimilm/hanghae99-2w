@@ -120,4 +120,78 @@ public class Solutions {
         
         return answer;
     }
+
+    // https://school.programmers.co.kr/learn/courses/30/lessons/68935
+    public int _3진법_뒤집기(int n){
+        
+        List<Integer> list = new ArrayList<>();
+        while(n>2){
+            list.add(n%3);
+            n /= 3;
+        }
+        list.add(n);
+ 
+        // 3^0 * 1 + 3^1*2 + 3^2*0 + 3^3*0
+        int[] reverseArr = new int[list.size()];
+        int index = list.size()-1;
+        double sibzin = 0;
+        for(int i=0; i<list.size(); i++){
+            int gob = list.get(index);
+            sibzin += Math.pow(3, i) * gob ; // 3^0 * 1 + 3^1*2 + 3^2*0 + 3^3*0
+            index--;
+        } 
+        
+        return (int) sibzin;
+    }
+
+    // https://school.programmers.co.kr/learn/courses/30/lessons/86491#
+    public int 최소직사각형(int[][] sizes) {
+        int rightMax = 0;
+        int leftMax = 0;
+        
+        for(int[] s : sizes){
+            if(s[0] < s[1]){
+                int shakeit = s[0];
+                s[0] = s[1];
+                s[1] = shakeit;
+            }
+            rightMax = Math.max(s[1], rightMax);
+            leftMax = Math.max(s[0], leftMax);
+        }
+        
+        return rightMax * leftMax;
+    }
+
+    // https://school.programmers.co.kr/learn/courses/30/lessons/12906
+    public int[] 같은_숫자는_싫어(int []arr) {
+        
+        int log = 10;
+        List<Integer> list = new ArrayList<>();
+        for(int a : arr){
+            if(log != a){
+                list.add(a);
+                log = a;
+            }
+        }
+
+        return list.stream().mapToInt(Integer::valueOf).toArray();
+    }
+
+    // https://school.programmers.co.kr/learn/courses/30/lessons/68644
+    public int[] 두_개_뽑아_더하기(int[] numbers) {
+        
+        Set<Integer> set = new HashSet<>();
+        for(int i=0; i<numbers.length; i++){
+            for(int j=i+1; j<numbers.length; j++){
+                set.add(numbers[i]+numbers[j]);
+            }
+        }
+        
+        int[] answer = new int[set.size()];
+        int c = 0;
+        for(int x : set) answer[c++] = x;
+        
+        Arrays.sort(answer);
+        return answer;
+    }
 }
