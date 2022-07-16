@@ -1,13 +1,11 @@
 package young;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class SolutionsTest {
 
     private Solutions solution = new Solutions();
+
     @Test
     void Dateyoung() {
         String result = solution.Dateyoung(5, 24);
@@ -15,8 +13,8 @@ class SolutionsTest {
     }
 
     @Test
-    void suback() {
-        String result = solution.suback(3);
+    void _제곱근() {
+        float result = solution._제곱근(123);
         System.out.println(result);
     }
 
@@ -25,6 +23,18 @@ class SolutionsTest {
         String[] a = {"leo", "kiki", "eden"} ;
         String[] b = {"eden", "kiki"} ;
         String result = solution.who_arrive(a,b);
+        System.out.println(result);
+    }
+    @Test
+    void small() {
+        int[] arr = {4,3,2,1};
+        int[] result = solution.small(arr);
+        System.out.println(result);
+    }
+
+    @Test
+    void onebyone() {
+        int result = solution.onebyone(6);
         System.out.println(result);
     }
 }

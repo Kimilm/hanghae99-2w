@@ -130,7 +130,7 @@ public class Solutions {
 
     }
 
-    public long solution (long n) {
+    public long solution(long n) {
         String answer = "";
         // long → String
         String num = String.valueOf(n);
@@ -148,7 +148,101 @@ public class Solutions {
 
     }
 
+    public long _제곱근(long n) {
+        float result = (float) Math.sqrt(n);
+        float really = (float) Math.ceil(result);
+        float really2 = (float) Math.floor(result);
+        boolean True = really == really2;
+        if (True == true) {
+            long result2 = (long) (result + 1);
+            long answer = result2 * result2;
+            return answer;
+        }
+        long answer = -1;
+        return answer;
+    }
+
+    public int[] small(int[] arr) {
+        int[] array = {};
+        //배열 길이가 1인 경우
+        if(arr.length == 1){
+            int[] answer = {-1};
+            return answer;
+        }
+        //배열길이가 1보다 클 때
+        //가장 작은 수를 뺀 길이로 초기화
+        int[] answer = new int[arr.length-1];
+
+        int min = arr[0]; //하나의 값을 기준으로 잡음.
+        //제일 작은 수를 구한다.
+        for(int i=1; i<arr.length; i++){
+            min = Math.min(min, arr[i]);
+        }
+
+        //반복문 index 용
+        int index = 0;
+
+        //가장 작은 수를 제외한 배열 만들기
+        for(int i=0; i<arr.length; i++){
+            //배열의 값이 가장 작은 수라면
+            if(arr[i] == min){
+                //continue를 이용해 배열에 넣지 않고 넘어간다.
+                continue;
+            }
+            answer[index++] = arr[i];
+        }
+
+        return answer;
+    }
+
+    public boolean hashad(int x) {
+
+        String y = String.valueOf(x);
+        String[] xy = y.split("");
+        int sum = 0;
+        for (int i = 0; i < xy.length; i++) {
+            sum += Float.parseFloat(xy[i]);
+        }
+        float xyz = x;
+        float True = xyz / sum;
+        float really = (float) Math.ceil(True);
+        float really2 = (float) Math.floor(True);
+        if (really == really2) {
+            boolean answer = true;
+            return answer;
+        }
+        boolean answer = false;
+        return answer;
+    }
+
+    public int onebyone(int num) {
+        long n = num;
+        int count = 0;
+        while (n != 1) {
+            if (num % 2 == 0) {
+                num /= 2;
+            } else {
+                num = num * 3 + 1;
+            }
+             count++;
+
+        if (count > 500)
+            return -1;
+        }
+        return count;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
