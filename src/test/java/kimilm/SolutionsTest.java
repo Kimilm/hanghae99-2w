@@ -50,4 +50,10 @@ class SolutionsTest {
         int result = solution.소수_만들기(new int[]{1, 2, 7, 6, 4});
         assertEquals(4, result);
     }
+
+    @Test
+    void 신규_아이디_추천() {
+        String result = solution.신규_아이디_추천("...!@BaT#*..y.abcdefghijklm");
+        assertEquals("bat.y.abcdefghi", result);
+    }
 }
