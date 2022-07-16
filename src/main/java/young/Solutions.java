@@ -231,7 +231,70 @@ public class Solutions {
         }
         return count;
     }
+
+    public int[] twointwo(int[] numbers) {
+        // 어레이리스트 만들기
+        ArrayList<Integer> sumArr = new ArrayList<>();
+        // i가 numbers의 길이보다 1작을때까지 반복
+        for(int i = 0; i < numbers.length-1; i++){
+            for(int j = 1 + i; j < numbers.length; j++){
+                int temp = numbers[i] + numbers[j];
+//                 배열 안에 숫자가 있으면 추가하지않고
+//                 없으면 추가함
+                if(sumArr.indexOf(temp) < 0){
+                    sumArr.add(temp);
+                }
+            }
+        }
+        int[] answer = new int[sumArr.size()];
+        int index = 0;
+        for(int num : sumArr) {
+            answer[index++] = num;
+        }
+        Arrays.sort(answer);
+        return answer;
+    }
+    public int three(int n) {
+            int answer = 0;
+            long getthree = Long.parseLong(Integer.toString(n, 3));
+            long num = 0;
+            while (getthree > 0) {
+                num = (num * 10) + (getthree % 10);
+                getthree /= 10;
+            }
+            answer = (Integer.parseInt(String.valueOf(num), 3));
+
+            return answer;
+    }
+
+
+
+
+    public int[] holdtwo(int []arr) {
+        ArrayList<Integer> get = new ArrayList<>();
+//      열의 끝까지 반복
+        int i = 1;
+        for (i = 1; i < arr.length; i++) {
+//            열의 끝일 경우 값 그대로 출력
+            if (arr[i] != arr[(i-1)]) {
+                get.add(arr[i-1]);
+            }
+        } get.add(arr[i-1]);
+        int[] answer = new int[get.size()];
+        int index = 0;
+        for(int num : get) {
+            answer[index++] = num;
+        }
+        return answer;
+    }
 }
+
+
+
+
+
+
+
 
 
 

@@ -37,4 +37,22 @@ class SolutionsTest {
         int result = solution.onebyone(6);
         System.out.println(result);
     }
+    @Test
+    void twointwo() {
+        int[] arr = {2,1,3,4,1};
+        int[] result = solution.twointwo(arr);
+        System.out.println(result);
+    }
+    @Test
+    void three() {
+        int result = solution.three(120000);
+        System.out.println(result);
+    }
+
+    @Test
+    void holdtwo(){
+        int[] arr = {2,1,3,4,1};
+        int[] result = solution.holdtwo(arr);
+        System.out.println(result);
+    }
 }
