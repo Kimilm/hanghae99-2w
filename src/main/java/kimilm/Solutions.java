@@ -236,4 +236,14 @@ public class Solutions {
         // 최댓값 곱해서 리턴
         return idCardLong[n - 1] * idCardShort[n - 1];
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/68935
+    public int 삼진법_뒤집기(int n) {
+        // 10진법 숫자 -> 3진법 문자열로 변환하기
+        String num = Integer.toString(n, 3);
+        // 뒤집기
+        num = new StringBuilder(num).reverse().toString();
+        // 3진법 문자열 -> 10진법 숫자로 변환하여 리턴
+        return Integer.parseInt(num, 3);
+    }
 }
