@@ -343,4 +343,32 @@ public class Solutions {
             return score;
         }
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/77484
+    public int[] 로또의_최고_순위와_최저_순위(int[] lottos, int[] win_nums) {
+        // 당첨 등수 저장
+        int[] prize = {6, 6, 5, 4, 3, 2, 1};
+        // 당첨 번호 저장용 Set 선언
+        Set<Integer> lottoSet = new HashSet<>();
+        // 당첨번호 저장
+        for (int num : win_nums) {
+            lottoSet.add(num);
+        }
+        // 낙서된 숫자 저장 변수
+        int signed = 0;
+        // 맞춘 번호 체크
+        for (int num : lottos) {
+            if (num == 0) {
+                // 낙서된 번호는 체크
+                ++signed;
+            } else {
+                // 맞춘 번호는 제거
+                lottoSet.remove(num);
+            }
+        }
+        // 6개 - 남은 당첨 번호 개수 == 내가 맞춘 번호 개수
+        int correct = 6 - lottoSet.size();
+        // 내가 맞춘 번호 개수 + 낙서된 번호 == 최고 순위, 내가 맞춘 번호 개수 == 최저 순위
+        return new int[]{prize[signed + correct], prize[correct]};
+    }
 }
