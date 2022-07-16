@@ -428,4 +428,41 @@ public class Solutions {
         // 숫자로 바꿔서 리턴
         return Integer.parseInt(s);
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12977
+    public int 소수_만들기(int[] nums) {
+        // 배열 길이
+        int n = nums.length;
+        // 소수 카운트 변수
+        int count = 0;
+        // 모든 경우의 수
+        for (int i = 0; i < n - 2; i++) {
+            for (int j = i + 1; j < n - 1; j++) {
+                for (int k = j + 1; k < n; k++) {
+                    // 숫자 3개를 더해서
+                    int num = nums[i] + nums[j] + nums[k];
+                    // 소수라면 카운트 증가
+                    if (isPrime(num)) {
+                        ++count;
+                    }
+                }
+            }
+        }
+        // 카운트 리턴
+        return count;
+    }
+
+    // 소수 판별 함수
+    public boolean isPrime(int n) {
+        // 제곱근 구하기
+        int sqrt = (int) Math.sqrt(n);
+        // 2부터 제곱근까지
+        for (int i = 2; i <= sqrt; i++) {
+            // 나누어 떨어진다면 소수가 아님
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
