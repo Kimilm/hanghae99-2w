@@ -465,4 +465,38 @@ public class Solutions {
         }
         return true;
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12926
+    public String 시저_암호(String s, int n) {
+        // 알파벳 26자
+        int alphabet = 26;
+        // 스페이스 32
+        int space = 32;
+        // 대문자 A 65
+        int upper = 65;
+        // 소문자 a 97
+        int lower = 97;
+        // char 배열로 변환
+        char[] chars = s.toCharArray();
+        // 각각의 원소마다
+        for (int i = 0; i < chars.length; i++) {
+            // 스페이스라면 밀지 않음
+            if (chars[i] == space) {
+                continue;
+            }
+            // 대문자 소문자 여부 확인
+            boolean isLower = chars[i] >= lower;
+            // 0 - 26 범위로 변경
+            chars[i] = (char) (isLower ? chars[i] - lower : chars[i] - upper);
+            // n 만큼 밀기
+            chars[i] += n;
+            // 0 - 26 범위로 조정
+            chars[i] %= alphabet;
+            // 소문자 97~, 대문자 65~ 범위로 변경
+            chars[i] = (char) (isLower ? chars[i] + lower : chars[i] + upper);
+        }
+        // 문자열로 변환하여 리턴
+        return new String(chars);
+        // Character.isLowerCase, Character.isUpperCase, (ch - 'a' + n) % 26 + 'a'
+    }
 }
