@@ -210,4 +210,30 @@ public class Solutions {
         // 나누어지면 true, 아니면 false 리턴
         return x % sum == 0;
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/86491
+    public int 최소_직사각형(int[][] sizes) {
+        // 명함 개수
+        int n = sizes.length;
+        // 명함 가로 세로를 긴쪽 짧은쪽으로 바꾸기
+        for (int i = 0; i < n; i++) {
+            if (sizes[i][0] < sizes[i][1]) {
+                int temp = sizes[i][0];
+                sizes[i][0] = sizes[i][1];
+                sizes[i][1] = temp;
+            }
+        }
+        // 긴쪽과 짧은쪽을 따로 분리해서 저장
+        int[] idCardLong = new int[n];
+        int[] idCardShort = new int[n];
+        for (int i = 0; i < n; i++) {
+            idCardLong[i] = sizes[i][0];
+            idCardShort[i] = sizes[i][1];
+        }
+        // 정렬
+        Arrays.sort(idCardLong);
+        Arrays.sort(idCardShort);
+        // 최댓값 곱해서 리턴
+        return idCardLong[n - 1] * idCardShort[n - 1];
+    }
 }
