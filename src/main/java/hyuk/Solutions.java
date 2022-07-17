@@ -1,6 +1,8 @@
 package hyuk;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Solutions {
@@ -107,7 +109,17 @@ public class Solutions {
         return true;
     }
 
+    public int switchNumStr(String s) {
+        String words [] = {"zero","one","two","three","four","five","six","seven","eight","nine"};
 
+        for (int i = 0; i < words.length; i++) {
+            s = s.replace(words[i], String.valueOf(i));
+        }
+
+
+
+return Integer.parseInt(s);
+    }
 }
 
 

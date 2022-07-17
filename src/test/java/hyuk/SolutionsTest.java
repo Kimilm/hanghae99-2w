@@ -39,9 +39,20 @@ class SolutionsTest {
 
     @Test
     void makePrime(){
+        //https://programmers.co.kr/learn/courses/30/lessons/12977
         int[] nums = {1,2,7,6,4};
         int result = solution.makePrime(nums);
         System.out.println(result);
+
+    }
+    @Test
+    void switchNumStr(){
+        //https://school.programmers.co.kr/learn/courses/30/lessons/81301
+        String s = "one4seveneight";
+
+        int result = solution.switchNumStr(s);
+        System.out.println(result);
+
 
     }
 
