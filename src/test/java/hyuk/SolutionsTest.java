@@ -55,6 +55,15 @@ class SolutionsTest {
 
 
     }
+    @Test
+    void  caesar(){
+        //https://school.programmers.co.kr/learn/courses/30/lessons/12926
+        String s = "AB";
+        int n = 1;
+
+        String result = solution.caesar(s,n);
+        System.out.println(result);
+    }
 
 
 }

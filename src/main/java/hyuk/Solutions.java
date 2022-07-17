@@ -110,15 +110,63 @@ public class Solutions {
     }
 
     public int switchNumStr(String s) {
-        String words [] = {"zero","one","two","three","four","five","six","seven","eight","nine"};
+        String words[] = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
 
         for (int i = 0; i < words.length; i++) {
             s = s.replace(words[i], String.valueOf(i));
         }
 
 
+        return Integer.parseInt(s);
+    }
+    public String caesar(String s, int n) {
 
-return Integer.parseInt(s);
+//
+//        char[] charArr = s.toCharArray();
+//        for (int i=0; i < charArr.length ;i++) {
+//            int ascii = charArr[i];
+//            if(ascii == 32)continue;
+//
+//            if (ascii == 122 && n == 1){
+//                ascii = 96;}
+//
+//            if (ascii == 122 && n != 1){
+//                ascii = 97;
+//                charArr[i] = (char)(ascii+n-1);
+//                continue;
+//
+//            }
+//            if (ascii == 90 && n == 1){ascii = 64; }
+//
+//            if(ascii == 90 && n != 1){
+//                ascii = 65;
+//                charArr[i] = (char)(ascii+n-1);
+//                continue;
+//            }
+//            charArr[i] = (char)(ascii+n);
+//
+//        }
+//        String answer = new String(charArr);
+//
+//
+//
+        String answer = "";
+
+        for(int i=0; i<s.length(); i++){
+            char ch = s.charAt(i);
+
+            if(ch>= 97 && ch <= 122 ){ //소문자
+                ch = (char)((ch-'a'+n)%26 + 'a');
+            }
+            else if(ch >=65 && ch <= 90){ //대문자
+                ch = (char)((ch-'A'+n)%26 + 'A');
+            }
+            answer += ch;
+        }
+        return answer;
+
+
+
     }
 }
 
