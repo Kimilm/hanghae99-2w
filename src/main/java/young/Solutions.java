@@ -165,17 +165,17 @@ public class Solutions {
     public int[] small(int[] arr) {
         int[] array = {};
         //배열 길이가 1인 경우
-        if(arr.length == 1){
+        if (arr.length == 1) {
             int[] answer = {-1};
             return answer;
         }
         //배열길이가 1보다 클 때
         //가장 작은 수를 뺀 길이로 초기화
-        int[] answer = new int[arr.length-1];
+        int[] answer = new int[arr.length - 1];
 
         int min = arr[0]; //하나의 값을 기준으로 잡음.
         //제일 작은 수를 구한다.
-        for(int i=1; i<arr.length; i++){
+        for (int i = 1; i < arr.length; i++) {
             min = Math.min(min, arr[i]);
         }
 
@@ -183,9 +183,9 @@ public class Solutions {
         int index = 0;
 
         //가장 작은 수를 제외한 배열 만들기
-        for(int i=0; i<arr.length; i++){
+        for (int i = 0; i < arr.length; i++) {
             //배열의 값이 가장 작은 수라면
-            if(arr[i] == min){
+            if (arr[i] == min) {
                 //continue를 이용해 배열에 넣지 않고 넘어간다.
                 continue;
             }
@@ -224,10 +224,10 @@ public class Solutions {
             } else {
                 num = num * 3 + 1;
             }
-             count++;
+            count++;
 
-        if (count > 500)
-            return -1;
+            if (count > 500)
+                return -1;
         }
         return count;
     }
@@ -236,60 +236,226 @@ public class Solutions {
         // 어레이리스트 만들기
         ArrayList<Integer> sumArr = new ArrayList<>();
         // i가 numbers의 길이보다 1작을때까지 반복
-        for(int i = 0; i < numbers.length-1; i++){
-            for(int j = 1 + i; j < numbers.length; j++){
+        for (int i = 0; i < numbers.length - 1; i++) {
+            for (int j = 1 + i; j < numbers.length; j++) {
                 int temp = numbers[i] + numbers[j];
 //                 배열 안에 숫자가 있으면 추가하지않고
 //                 없으면 추가함
-                if(sumArr.indexOf(temp) < 0){
+                if (sumArr.indexOf(temp) < 0) {
                     sumArr.add(temp);
                 }
             }
         }
         int[] answer = new int[sumArr.size()];
         int index = 0;
-        for(int num : sumArr) {
+        for (int num : sumArr) {
             answer[index++] = num;
         }
         Arrays.sort(answer);
         return answer;
     }
-    public int three(int n) {
-            int answer = 0;
-            long getthree = Long.parseLong(Integer.toString(n, 3));
-            long num = 0;
-            while (getthree > 0) {
-                num = (num * 10) + (getthree % 10);
-                getthree /= 10;
-            }
-            answer = (Integer.parseInt(String.valueOf(num), 3));
 
-            return answer;
+    public int three(int n) {
+        int answer = 0;
+        long getthree = Long.parseLong(Integer.toString(n, 3));
+        long num = 0;
+        while (getthree > 0) {
+            num = (num * 10) + (getthree % 10);
+            getthree /= 10;
+        }
+        answer = (Integer.parseInt(String.valueOf(num), 3));
+
+        return answer;
     }
 
 
-
-
-    public int[] holdtwo(int []arr) {
+    public int[] holdtwo(int[] arr) {
         ArrayList<Integer> get = new ArrayList<>();
 //      열의 끝까지 반복
         int i = 1;
         for (i = 1; i < arr.length; i++) {
 //            열의 끝일 경우 값 그대로 출력
-            if (arr[i] != arr[(i-1)]) {
-                get.add(arr[i-1]);
+            if (arr[i] != arr[(i - 1)]) {
+                get.add(arr[i - 1]);
             }
-        } get.add(arr[i-1]);
+        }
+        get.add(arr[i - 1]);
         int[] answer = new int[get.size()];
         int index = 0;
-        for(int num : get) {
+        for (int num : get) {
             answer[index++] = num;
         }
         return answer;
     }
+
+    //    문자 내림차순 대문자는 맨뒤로
+    public String Lower(String s) {
+        String answer = "";
+        ArrayList<String> upper = new ArrayList<>();
+        char[] sxy = s.toCharArray();
+        for (char c : sxy) {
+            upper.add(String.valueOf(c));
+        }
+        upper.sort(Comparator.reverseOrder());
+        StringBuilder sb = new StringBuilder();
+        for (String x : upper) {
+            sb.append(x);
+        }
+        return sb.toString();
+    }
+
+    public int[] math(int[] answers) {
+        int[] student1 = {1,2,3,4,5};
+        int[] student2 = {2,1,2,3,2,4,2,5};
+        int[] student3 = {3,3,1,1,2,2,4,4,5,5};
+        int answer1=0;
+        int answer2=0;
+        int answer3=0;
+        for(int i=0; i < answers.length; i++){
+            if(student1[i% student1.length]== answers[i]) answer1++;
+            if(student2[i% student2.length]== answers[i]) answer2++;
+            if(student3[i% student3.length]== answers[i]) answer3++;
+        }
+        int max = Math.max(Math.max(answer1,answer2),answer3);
+        ArrayList<Integer> score = new ArrayList<Integer>();
+        if(max==answer1) score.add(1); //max값이랑 같으면 넣는다.
+        if(max==answer2) score.add(2);
+        if(max==answer3) score.add(3);
+
+        int[] answer = new int[score.size()];
+
+        for(int i =0; i<answer.length; i++) {
+            answer[i] = score.get(i);
+        }
+
+        return answer;
+    }
+    public String[] 문자열_내맘대로(String[] strings, int n) {
+        String[] answer = {};
+//         리스트 만들기
+        ArrayList<String> arr = new ArrayList<>();
+
+        for (int i = 0; i < strings.length; i++) {
+//    리스트에 넣는다... 공백 뒤에 문자모음의 i번째.n번째 글자와 i번째 문자를
+//    ex) " ssun"," bbed","ccar"
+            arr.add(strings[i].charAt(n) + strings[i]);
+        }
+//         리스트를 오름차순 시킨다.
+        Collections.sort(arr);
+        answer = new String[arr.size()];
+        for (int i = 0; i < arr.size(); i++) {
+
+            answer[i] = arr.get(i).substring(1);
+        }
+        return answer;
+    }
+    public int[] 로또(int[] lottos, int[] win_nums) {
+        int zero = 0;
+        int success = 0;
+        ArrayList<Integer> lottonumber = new ArrayList<>();
+        for (int S : lottos) {
+            if (S == 0) {
+                zero++;
+            } else {
+                lottonumber.add(S);
+            }
+        }
+        for (int winnum : win_nums) {
+            if (lottonumber.contains(winnum)){
+                success++;
+            }
+        }
+        int man = 0;
+        int change = success+zero;
+        if (change==6) {
+            man = 1;
+        } else if (change==5){
+            man = 2;
+        } else if (change==4){
+            man = 3;
+        } else if (change==3){
+            man = 4;
+        } else if (change==2) {
+            man = 5;
+        } else {man = 6;}
+
+        int oman = 0;
+        if (success==6) {
+            oman = 1;
+        } else if (success==5){
+            oman = 2;
+        } else if (success==4){
+            oman = 3;
+        } else if (success==3){
+            oman = 4;
+        } else if (success==2) {
+            oman = 5;
+        } else {oman = 6;}
+
+
+        int[] answer = {man,oman};
+
+
+
+
+        return answer;
+    }
+    public int 문자를_숫자로(String s) {
+        int answer = 0;
+        String[][] change =
+                {{"zero","0"},{"one","1"},{"two","2"},{"three","3"}, {"four","4"},{"five","5"},{"six","6"},{"seven","7"}, {"eight","8"},{"nine","9"}};
+        for (String[] R : change) {
+            s = s.replaceAll(R[0],R[1]);
+        }
+        answer = Integer.parseInt(s);
+        return answer;
+    }
+
+    public int 소수(int[] nums) {
+        int numslength = nums.length;
+        int count = 0;
+        for (int i = 0; i < numslength-2; i++) {
+
+            for (int j = i+1; j < numslength-1; j++) {
+
+                for (int k = j+1; k < numslength; k++) {
+
+                    int num = nums[i]+nums[j]+nums[k];
+                    if (sosu(num)) {
+                        count++;
+                    }
+                    }
+                }
+            }
+        return count;
+    }
+    public boolean sosu (int math) {
+        int sqrt = (int) Math.sqrt(math);
+        for (int i = 2; i <= sqrt; i++) {
+            if (math % i == 0) {
+                return false;
+            }
+        }return true;
+    }
+
+    public String 시저개색(String s, int n) {
+        String answer = "";
+        for(int i=0; i<s.length(); i++) {
+            char ch = s.charAt(i);
+
+            if(Character.isLowerCase(ch)) { //소문자
+                ch = (char) ((ch - 'a' + n) % 26 + 'a');
+            } else if(Character.isUpperCase(ch)) { //대문자
+                ch = (char) ((ch - 'A' + n) % 26 + 'A');
+            }
+
+            answer += ch;
+        }
+
+
+        return answer;
+    }
 }
-
-
 
 
 

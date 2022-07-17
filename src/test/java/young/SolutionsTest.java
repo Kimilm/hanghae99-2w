@@ -55,4 +55,11 @@ class SolutionsTest {
         int[] result = solution.holdtwo(arr);
         System.out.println(result);
     }
+    @Test
+    void Lower(){
+        String result = solution.Lower("Zbcdefg");
+        System.out.println(result);
+    }
+
+
 }
