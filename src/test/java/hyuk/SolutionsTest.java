@@ -36,4 +36,14 @@ class SolutionsTest {
 
         System.out.println(result);
     }
+
+    @Test
+    void makePrime(){
+        int[] nums = {1,2,7,6,4};
+        int result = solution.makePrime(nums);
+        System.out.println(result);
+
+    }
+
+
 }

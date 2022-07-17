@@ -3,7 +3,6 @@ package hyuk;
 import java.util.*;
 
 
-
 public class Solutions {
     public static String Dateyoung(int a, int b) {
         String answer = "";
@@ -44,11 +43,11 @@ public class Solutions {
     }
 
     public int threeReverse(int n) {
-        String three = Integer.toString(n,3);
+        String three = Integer.toString(n, 3);
 
         StringBuffer sb = new StringBuffer(three);
         String reversedThree = sb.reverse().toString();
-        int ten = Integer.parseInt(reversedThree,3);
+        int ten = Integer.parseInt(reversedThree, 3);
 
         return ten;
     }
@@ -56,22 +55,56 @@ public class Solutions {
     public int[] pickTwoPlus(int[] numbers) {
         ArrayList<Integer> array = new ArrayList<>();
 
-        for(int i = 0; i<numbers.length-1; i++){
-            for(int j = i+1; j<numbers.length; j++){
-                int num = numbers[i]+numbers[j];
-                if(!array.contains(num)){
+        for (int i = 0; i < numbers.length - 1; i++) {
+            for (int j = i + 1; j < numbers.length; j++) {
+                int num = numbers[i] + numbers[j];
+                if (!array.contains(num)) {
                     array.add(num);
                     //set 집합
                 }
             }
         }
         int[] answer = new int[array.size()];
-        for(int i = 0; i<array.size(); i++){
+        for (int i = 0; i < array.size(); i++) {
             answer[i] = array.get(i);
         }
 
         Arrays.sort(answer);
         return answer;
+    }
+
+    public int[] lotto(int[] lottos, int[] win_nums) {
+        int[] answer = {};
+        return answer;
+    }
+
+    public int makePrime(int[] nums) {
+        int answer = 0;
+        int sum = 0;
+        for (int i = 0; i < nums.length - 2; i++) {
+            for (int j = i + 1; j < nums.length - 1; j++) {
+                for (int h = j + 1; h < nums.length; h++) {
+                    sum = nums[i] + nums[j] + nums[h];
+                    if (isPrime(sum)) {
+                        answer++;
+
+                    }
+
+                }
+            }
+
+        }
+
+        return answer;
+    }
+
+    public static boolean isPrime(int num) {
+        if (num <= 1) return false;    // 1은 소수가 아니다.
+        if (num <= 3) return true;    // 2와3은 소수이다.
+        for (int i = 2; i <= num - 1; i++) {
+            if (num % i == 0) return false;
+        }
+        return true;
     }
 
 

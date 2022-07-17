@@ -50,3 +50,4 @@ class SolutionsTest {
         assertEquals(229, solution._3진법_뒤집기(125));
     }
 }
+
