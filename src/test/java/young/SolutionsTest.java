@@ -87,14 +87,6 @@ class SolutionsTest {
         int[] result = solution.K번째수(new int[]{1, 5, 2, 6, 3, 7, 4}, arr);
         System.out.println(result[0]+"="+result[1]);
     }
-    @Test
-    void 실패율(){
-        int[] arr = {2,1,2,6,2,4,3,3};
-        int[] result = solution.실패율(5, arr);
-        for (int i = 0; i < result.size(); i++) {
-            System.out.println(Arrays.toString(result.get(i)));
-        }
-    }
 
 
 }
