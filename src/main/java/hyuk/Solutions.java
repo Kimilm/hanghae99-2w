@@ -119,6 +119,7 @@ public class Solutions {
 
         return Integer.parseInt(s);
     }
+
     public String caesar(String s, int n) {
 
 //
@@ -152,21 +153,44 @@ public class Solutions {
 //
         String answer = "";
 
-        for(int i=0; i<s.length(); i++){
+        for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
 
-            if(ch>= 97 && ch <= 122 ){ //소문자
-                ch = (char)((ch-'a'+n)%26 + 'a');
-            }
-            else if(ch >=65 && ch <= 90){ //대문자
-                ch = (char)((ch-'A'+n)%26 + 'A');
+            if (ch >= 97 && ch <= 122) { //소문자
+                ch = (char) ((ch - 'a' + n) % 26 + 'a');
+            } else if (ch >= 65 && ch <= 90) { //대문자
+                ch = (char) ((ch - 'A' + n) % 26 + 'A');
             }
             answer += ch;
         }
         return answer;
 
 
+    }
 
+    public int 약수개수덧셈뺄셈(int left, int right) {
+
+        int sum = 0;
+        int count = 0;
+        for (int i = left; i <= right; i++) {
+            sum += i;
+
+            for (int j = 1; j * j <= i; j++) {
+                if (j*j == i) count++;
+                else if (i % j == 0) count += 2;
+
+
+                if (count % 2 != 0){
+                    sum = sum -(i*2);
+                }
+                count = 0;
+            }
+
+
+
+        }
+
+        return sum;
     }
 }
 

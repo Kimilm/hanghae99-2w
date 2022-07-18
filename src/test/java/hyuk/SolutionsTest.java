@@ -65,5 +65,14 @@ class SolutionsTest {
         System.out.println(result);
     }
 
+    @Test
+    void 약수개수덧셈뺄셈(){
+//        https://school.programmers.co.kr/learn/courses/30/lessons/77884
+        int left = 24;
+        int right = 27;
+        int result = solution.약수개수덧셈뺄셈(left,right);
+        System.out.println(result);
+    }
+
 
 }
