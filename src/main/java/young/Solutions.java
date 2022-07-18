@@ -305,31 +305,32 @@ public class Solutions {
     }
 
     public int[] math(int[] answers) {
-        int[] student1 = {1,2,3,4,5};
-        int[] student2 = {2,1,2,3,2,4,2,5};
-        int[] student3 = {3,3,1,1,2,2,4,4,5,5};
-        int answer1=0;
-        int answer2=0;
-        int answer3=0;
-        for(int i=0; i < answers.length; i++){
-            if(student1[i% student1.length]== answers[i]) answer1++;
-            if(student2[i% student2.length]== answers[i]) answer2++;
-            if(student3[i% student3.length]== answers[i]) answer3++;
+        int[] student1 = {1, 2, 3, 4, 5};
+        int[] student2 = {2, 1, 2, 3, 2, 4, 2, 5};
+        int[] student3 = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
+        int answer1 = 0;
+        int answer2 = 0;
+        int answer3 = 0;
+        for (int i = 0; i < answers.length; i++) {
+            if (student1[i % student1.length] == answers[i]) answer1++;
+            if (student2[i % student2.length] == answers[i]) answer2++;
+            if (student3[i % student3.length] == answers[i]) answer3++;
         }
-        int max = Math.max(Math.max(answer1,answer2),answer3);
+        int max = Math.max(Math.max(answer1, answer2), answer3);
         ArrayList<Integer> score = new ArrayList<Integer>();
-        if(max==answer1) score.add(1); //max값이랑 같으면 넣는다.
-        if(max==answer2) score.add(2);
-        if(max==answer3) score.add(3);
+        if (max == answer1) score.add(1); //max값이랑 같으면 넣는다.
+        if (max == answer2) score.add(2);
+        if (max == answer3) score.add(3);
 
         int[] answer = new int[score.size()];
 
-        for(int i =0; i<answer.length; i++) {
+        for (int i = 0; i < answer.length; i++) {
             answer[i] = score.get(i);
         }
 
         return answer;
     }
+
     public String[] 문자열_내맘대로(String[] strings, int n) {
         String[] answer = {};
 //         리스트 만들기
@@ -349,6 +350,7 @@ public class Solutions {
         }
         return answer;
     }
+
     public int[] 로또(int[] lottos, int[] win_nums) {
         int zero = 0;
         int success = 0;
@@ -361,51 +363,54 @@ public class Solutions {
             }
         }
         for (int winnum : win_nums) {
-            if (lottonumber.contains(winnum)){
+            if (lottonumber.contains(winnum)) {
                 success++;
             }
         }
         int man = 0;
-        int change = success+zero;
-        if (change==6) {
+        int change = success + zero;
+        if (change == 6) {
             man = 1;
-        } else if (change==5){
+        } else if (change == 5) {
             man = 2;
-        } else if (change==4){
+        } else if (change == 4) {
             man = 3;
-        } else if (change==3){
+        } else if (change == 3) {
             man = 4;
-        } else if (change==2) {
+        } else if (change == 2) {
             man = 5;
-        } else {man = 6;}
+        } else {
+            man = 6;
+        }
 
         int oman = 0;
-        if (success==6) {
+        if (success == 6) {
             oman = 1;
-        } else if (success==5){
+        } else if (success == 5) {
             oman = 2;
-        } else if (success==4){
+        } else if (success == 4) {
             oman = 3;
-        } else if (success==3){
+        } else if (success == 3) {
             oman = 4;
-        } else if (success==2) {
+        } else if (success == 2) {
             oman = 5;
-        } else {oman = 6;}
+        } else {
+            oman = 6;
+        }
 
 
-        int[] answer = {man,oman};
-
-
+        int[] answer = {man, oman};
 
 
         return answer;
     }
+
     public int 문자를_숫자로(String s) {
         int answer = 0;
         String[][] change =
-                {{"zero","0"},{"one","1"},{"two","2"},{"three","3"}, {"four","4"},{"five","5"},{"six","6"},{"seven","7"}, {"eight","8"},{"nine","9"}};
+                {{"zero", "0"}, {"one", "1"}, {"two", "2"}, {"three", "3"}, {"four", "4"}, {"five", "5"}, {"six", "6"}, {"seven", "7"}, {"eight", "8"}, {"nine", "9"}};
         for (String[] R : change) {
-            s = s.replaceAll(R[0],R[1]);
+            s = s.replaceAll(R[0], R[1]);
         }
         answer = Integer.parseInt(s);
         return answer;
@@ -414,38 +419,40 @@ public class Solutions {
     public int 소수(int[] nums) {
         int numslength = nums.length;
         int count = 0;
-        for (int i = 0; i < numslength-2; i++) {
+        for (int i = 0; i < numslength - 2; i++) {
 
-            for (int j = i+1; j < numslength-1; j++) {
+            for (int j = i + 1; j < numslength - 1; j++) {
 
-                for (int k = j+1; k < numslength; k++) {
+                for (int k = j + 1; k < numslength; k++) {
 
-                    int num = nums[i]+nums[j]+nums[k];
+                    int num = nums[i] + nums[j] + nums[k];
                     if (sosu(num)) {
                         count++;
                     }
-                    }
                 }
             }
+        }
         return count;
     }
-    public boolean sosu (int math) {
+
+    public boolean sosu(int math) {
         int sqrt = (int) Math.sqrt(math);
         for (int i = 2; i <= sqrt; i++) {
             if (math % i == 0) {
                 return false;
             }
-        }return true;
+        }
+        return true;
     }
 
     public String 시저개색(String s, int n) {
         String answer = "";
-        for(int i=0; i<s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
 
-            if(Character.isLowerCase(ch)) { //소문자
+            if (Character.isLowerCase(ch)) { //소문자
                 ch = (char) ((ch - 'a' + n) % 26 + 'a');
-            } else if(Character.isUpperCase(ch)) { //대문자
+            } else if (Character.isUpperCase(ch)) { //대문자
                 ch = (char) ((ch - 'A' + n) % 26 + 'A');
             }
 
@@ -455,8 +462,164 @@ public class Solutions {
 
         return answer;
     }
-}
 
+    public int 약수의개수(int left, int right) {
+        int answer = 0;
+        for (int i = left; i <= right; i++) {
+            if (yaksu(i) % 2 == 0) {
+                answer -= i;
+                System.out.println(answer);
+            } else {
+                answer += i;
+                System.out.println(answer);
+            }
+        }
+        return answer;
+    }
+
+    public int yaksu(int num) {
+        int gaesu = 0;
+        for (int j = 1; j < num; j++) {
+            if (num % j == 0) {
+                gaesu++;
+            }
+        }
+        return gaesu;
+    }
+
+    public int 약수의합(int n) {
+        int answer = 0;
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) {
+                answer += i;
+            }
+        }
+        return answer;
+    }
+
+    public int 예산(int[] d, int budget) {
+        int count = 0;
+        Arrays.sort(d);
+        for (int i = 0; i < d.length; i++) {
+            if (budget - d[i] < 0) {
+                return count;
+            } else {
+                budget -= d[i];
+                count++;
+            }
+        }
+        return count;
+
+    }
+
+    public int[] 최대최소(int n, int m) {
+        int big = Math.max(n, m);
+        int small = Math.min(n, m);
+
+        int max = gcd(big, small);
+        int min = (m * n) / max;
+
+        int[] answer = {max, min};
+        return answer;
+    }
+
+    static int gcd(int a, int b) {
+        if (a % b == 0) {
+            return b;
+        }
+        return gcd(b, a % b);
+    }
+
+    public int[] K번째수(int[] array, int[][] commands) {
+
+        int[] answer = new int[3];
+        for (int i = 0; i < commands.length; i++) {
+            int[] arr = Arrays.copyOfRange(array, commands[i][0] - 1, commands[i][1]);
+            Arrays.sort(arr);
+            answer[i] = arr[commands[i][2] - 1];
+        }
+
+        return answer;
+    }
+
+    public int 나머지1(int n) {
+        int answer = 0;
+        int i = 1;
+        for (i = 1; i < n; i++) {
+            if (n % i == 1) {
+                answer = i;
+                return answer;
+            }
+
+
+        }
+        return answer;
+    }
+
+    public int 또소(int n) {
+        int answer = 0;
+        for (int i = 2; i <= n; i++) {
+            if (suuuuu(i)) {
+                answer++;
+            }
+        }
+        return answer;
+    }
+
+    public boolean suuuuu(int math) {
+        int sqrt = (int) Math.sqrt(math);
+        for (int i = 2; i <= sqrt; i++) {
+            if (math % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int[] 실패율(int N, int[] stages) {
+        int[] answer = new int[N];
+        double[] stage = new double[N+1];      // 스테이지마다 머물러 있는 사용자수를 담을 배열
+        // stage배열에 머물러있는 사용자수를 담는다 , 인덱스값이 스테이지번호
+        for(int i : stages){
+            if(i == N+1){
+                continue;
+            }
+            stage[i]++;
+        }
+        // 실패율을 계산해 담을 list
+        ArrayList<Double> fail = new ArrayList<Double>();
+        //스테이지에 도달한 명수
+        double num =stages.length;
+        //다음 스테이지로 올라갈때 줄어드는 사용자수를 계산하기 위해 사용
+        double tmp = 0;
+        //실패율을 구한 후 다시 stage배열에 담고, fail 리스트에도 담아준다.
+        for(int i=1; i<stage.length; i++){
+            tmp = stage[i];
+            // 도달한 사용자 수가 0 일때, 실패율도 0
+            if(num == 0){
+                stage[i]=0;
+            }else{
+                stage[i] = stage[i]/num;
+                num = num - tmp;
+            }
+            fail.add(stage[i]);
+        }
+        //  fail 리스트를 내림차순으로 정렬해준다.
+        Collections.sort(fail,Collections.reverseOrder());
+        //정렬된 fail리스트 값과 stage값을 비교해서 같으면 stage의 인덱스번호(스테이지번호)를 가져옴으로써
+        //실패율이 높은 순으로 answer배열에 넣어준다.
+        for(int i=0; i<fail.size(); i++){
+            for(int j=1; j<stage.length; j++){
+                if(fail.get(i) == stage[j]){
+                    answer[i] = j;
+                    stage[j] = -1;
+                    break;
+                }
+            }
+        }
+        return answer;
+    }
+}
 
 
 

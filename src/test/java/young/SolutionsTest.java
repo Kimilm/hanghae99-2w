@@ -2,6 +2,9 @@ package young;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 class SolutionsTest {
 
     private Solutions solution = new Solutions();
@@ -59,6 +62,30 @@ class SolutionsTest {
     void Lower(){
         String result = solution.Lower("Zbcdefg");
         System.out.println(result);
+    }
+
+    @Test
+    void 약수의개수(){
+        int result = solution.약수의개수(13,17);
+        System.out.println(result);
+    }
+    @Test
+    void 예산(){
+        int result = solution.예산(new int[]{2, 2, 3, 3},10);
+        System.out.println(result);
+    }
+
+    @Test
+    void 최대최소(){
+        int[] result = solution.최대최소(1200,1500);
+        System.out.println(result[0]+"="+result[1]);
+    }
+
+    @Test
+    void K번째수(){
+        int[][] arr = {{2,5,3},{4,4,1},{1,7,3}};
+        int[] result = solution.K번째수(new int[]{1, 5, 2, 6, 3, 7, 4}, arr);
+        System.out.println(result[0]+"="+result[1]);
     }
 
 
