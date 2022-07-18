@@ -562,4 +562,23 @@ public class Solutions {
         // 리스트로 바꿔서 리턴
         return new ArrayList<>(set);
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/77884
+    public int 약수의_개수와_덧셈(int left, int right) {
+        int answer = 0;
+        // left 부터 right 까지
+        for (int i = left; i <= right; i++) {
+            // 위에서 만든 약수 구하기 함수
+            int count = getSubmultiple(i).size();
+            // 짝수면 더하고
+            if (count % 2 == 0) {
+                answer += i;
+            }
+            // 홀수면 빼기
+            else {
+                answer -= i;
+            }
+        }
+        return answer;
+    }
 }
