@@ -537,4 +537,29 @@ public class Solutions {
         return new_id;
         // '.'이 2개 이상 -> "[.]{2,}", 시작이나 끝이 '.' -> "^[.]|[.]$"
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12928
+    public int 약수의_합(int n) {
+        // 약수를 구해서 모두 더하기
+        return getSubmultiple(n).stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    // 약수 구하기
+    public List<Integer> getSubmultiple(int n) {
+        // 자동 정렬이 되도록 트리셋 사용
+        Set<Integer> set = new TreeSet<>();
+        // 제곱근 이하까지만 계산하기
+        int sqrt = (int)Math.sqrt(n);
+        for (int i = 1; i <= sqrt; i++) {
+            // 나누어 떨어지면 나누는 수와 몫을 저장
+            if (n % i == 0) {
+                set.add(i);
+                set.add(n / i);
+            }
+        }
+        // 리스트로 바꿔서 리턴
+        return new ArrayList<>(set);
+    }
 }

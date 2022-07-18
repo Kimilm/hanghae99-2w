@@ -3,6 +3,7 @@ package kimilm;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -55,5 +56,11 @@ class SolutionsTest {
     void 신규_아이디_추천() {
         String result = solution.신규_아이디_추천("...!@BaT#*..y.abcdefghijklm");
         assertEquals("bat.y.abcdefghi", result);
+    }
+
+    @Test
+    void getSubmultiple() {
+        List<Integer> result = solution.getSubmultiple(12);
+        assertEquals(Arrays.asList(1, 2, 3, 4, 6, 12), result);
     }
 }
