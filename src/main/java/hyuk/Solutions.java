@@ -1,8 +1,6 @@
 package hyuk;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class Solutions {
@@ -191,6 +189,34 @@ public class Solutions {
         }
 
         return sum;
+    }
+    public String recommendId(String new_id){
+
+        String answer = new_id.toLowerCase();//1단계
+        System.out.println("1단계 :" +answer);
+//      answer = answer.replaceAll("[^\\w+..(.).(-).(!).(_)]","");
+        answer = answer.replaceAll("[^\\w+.(.).(-).(!).(_)]","");
+        System.out.println("2단계 :" +answer);
+        answer = answer.replaceAll("\\.{2,}",".");
+        System.out.println("3단계 :" +answer);
+        answer = answer.replaceAll("^\\.|\\.$","");
+        System.out.println("4단계 :" +answer);
+        if (answer.equals("")) answer ="a";
+        System.out.println("5단계 :" +answer);
+        if (answer.length()>=16) answer = answer.substring(0,15);
+        System.out.println("6단계 :" +answer);
+        answer = answer.replaceAll("\\.$","");
+        System.out.println("7단계 :" +answer);
+
+        if (answer.length() <= 2){
+            char last = answer.charAt(answer.length()-1);
+            while (answer.length() != 3){
+                answer += last;
+            }
+
+        }
+        return answer;
+
     }
 }
 

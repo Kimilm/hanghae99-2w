@@ -73,6 +73,13 @@ class SolutionsTest {
         int result = solution.약수개수덧셈뺄셈(left,right);
         System.out.println(result);
     }
+    @Test
+    void recommendId(){
+//      https://school.programmers.co.kr/learn/courses/30/lessons/72410
+      String new_id = "...!@BaT#*..y.abcdefghijklm123";
+        String result = solution.recommendId(new_id);
+        System.out.println(result);
+    }
 
 
 }
