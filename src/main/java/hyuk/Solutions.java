@@ -167,50 +167,50 @@ public class Solutions {
     }
 
     public int 약수개수덧셈뺄셈(int left, int right) {
-
+//        https://school.programmers.co.kr/learn/courses/30/lessons/77884
         int sum = 0;
         int count = 0;
         for (int i = left; i <= right; i++) {
             sum += i;
 
             for (int j = 1; j * j <= i; j++) {
-                if (j*j == i) count++;
+                if (j * j == i) count++;
                 else if (i % j == 0) count += 2;
 
 
-                if (count % 2 != 0){
-                    sum = sum -(i*2);
+                if (count % 2 != 0) {
+                    sum = sum - (i * 2);
                 }
                 count = 0;
             }
-
 
 
         }
 
         return sum;
     }
-    public String recommendId(String new_id){
 
+    public String recommendId(String new_id) {
+//        https://programmers.co.kr/learn/courses/30/lessons/72410
         String answer = new_id.toLowerCase();//1단계
-        System.out.println("1단계 :" +answer);
+        System.out.println("1단계 :" + answer);
 //      answer = answer.replaceAll("[^\\w+..(.).(-).(!).(_)]","");
-        answer = answer.replaceAll("[^\\w+.(.).(-).(!).(_)]","");
-        System.out.println("2단계 :" +answer);
-        answer = answer.replaceAll("\\.{2,}",".");
-        System.out.println("3단계 :" +answer);
-        answer = answer.replaceAll("^\\.|\\.$","");
-        System.out.println("4단계 :" +answer);
-        if (answer.equals("")) answer ="a";
-        System.out.println("5단계 :" +answer);
-        if (answer.length()>=16) answer = answer.substring(0,15);
-        System.out.println("6단계 :" +answer);
-        answer = answer.replaceAll("\\.$","");
-        System.out.println("7단계 :" +answer);
+        answer = answer.replaceAll("[^\\w+.(.).(-).(!).(_)]", "");
+        System.out.println("2단계 :" + answer);
+        answer = answer.replaceAll("\\.{2,}", ".");
+        System.out.println("3단계 :" + answer);
+        answer = answer.replaceAll("^\\.|\\.$", "");
+        System.out.println("4단계 :" + answer);
+        if (answer.equals("")) answer = "a";
+        System.out.println("5단계 :" + answer);
+        if (answer.length() >= 16) answer = answer.substring(0, 15);
+        System.out.println("6단계 :" + answer);
+        answer = answer.replaceAll("\\.$", "");
+        System.out.println("7단계 :" + answer);
 
-        if (answer.length() <= 2){
-            char last = answer.charAt(answer.length()-1);
-            while (answer.length() != 3){
+        if (answer.length() <= 2) {
+            char last = answer.charAt(answer.length() - 1);
+            while (answer.length() != 3) {
                 answer += last;
             }
 
@@ -218,6 +218,58 @@ public class Solutions {
         return answer;
 
     }
+
+    public int sumDivisior(int n) {
+        int answer = 0;
+
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) {
+                answer += i;
+            }
+        }
+        return answer;
+    }
+
+    public String getGcdLcm(int n, int m) {
+//        https://school.programmers.co.kr/learn/courses/30/lessons/12940
+
+        int max = Math.max(n, m);
+        int min = Math.min(n, m);
+
+        while (min != 0) {
+            int r = max % min;
+            max = min;
+            min = r;
+
+        }
+
+        int[] answer = {max, n * m / max};
+        return Arrays.toString(answer);
+    }
+
+    public int getBudget(int[] d, int budget) {
+        int answer = 0;
+        Arrays.sort(d);
+        System.out.println(Arrays.toString(d));
+        for (int i = 0; i < d.length; i++) {
+            budget = budget - d[i];
+
+            if (budget < 0) break;
+            answer++;
+
+            System.out.println("d :" + d[i]);
+            System.out.println("budget " + budget);
+
+            System.out.println("answer " + answer);
+            System.out.println("~~~~~~~~~~~~~");
+
+
+        }
+
+
+        return answer;
+    }
+
 }
 
 

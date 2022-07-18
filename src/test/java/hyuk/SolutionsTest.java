@@ -76,8 +76,33 @@ class SolutionsTest {
     @Test
     void recommendId(){
 //      https://school.programmers.co.kr/learn/courses/30/lessons/72410
-      String new_id = "...!@BaT#*..y.abcdefghijklm123";
+        String new_id = "...!@BaT#*..y.abcdefghijklm123";
         String result = solution.recommendId(new_id);
+        System.out.println(result);
+    }
+
+    @Test
+    void  sumDivisior(){
+        int n = 12;
+
+        int result = solution.sumDivisior(n);
+        System.out.println(result);
+    }
+    @Test
+    void getGcdLcm(){
+        int n = 582;
+        int m = 1254;
+
+        String result = solution.getGcdLcm(n,m);
+        System.out.println(result);
+
+    }
+    @Test
+    void getBudget(){
+        int [] d = {1,3,2,5,4};
+        int budget = 9;
+
+        int result = solution.getBudget(d,budget);
         System.out.println(result);
     }
 
