@@ -700,4 +700,86 @@ public class Solutions {
                 .filter(i -> !primes[i])
                 .count();
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/42889
+    public int[] 실패율(int N, int[] stages) {
+        // Stage 배열 초기화
+        Stage[] game = new Stage[N];
+        for (int i = 0; i < N; i++) {
+            game[i] = new Stage(i + 1);
+        }
+        // 각 스테이지마다
+        for (int stage : stages) {
+            // 인덱스 계산을 위해 1 빼기
+            --stage;
+            // N + 1 입력, 마지막 스테이지까지 클리어한 사람
+            if (stage == game.length) {
+                --stage;
+                game[stage].clear();
+            }
+            // N 스테이지 도전중
+            else {
+                game[stage].arrive();
+            }
+            // N - 1 스테이지까지 클리어했음
+            for (int i = 0; i < stage; i++) {
+                game[i].clear();
+            }
+        }
+        // 실패율 내림차순, 같다면 번호 오름차순 정렬 후 스테이지 번호 배열로 변환하여 리턴
+        return Arrays.stream(game)
+                .sorted()
+                .mapToInt(Stage::getStageNum)
+                .toArray();
+    }
+
+    class Stage implements Comparable<Stage> {
+        // 스테이지 번호
+        int stageNum;
+        // 도달한 사람
+        int arrive;
+        // 클리어한 사람
+        int clear;
+
+        // 생성자
+        public Stage(int stageNum) {
+            this.stageNum = stageNum;
+            this.arrive = 0;
+            this.clear = 0;
+        }
+
+        // 스테이지 번호
+        public int getStageNum() {
+            return this.stageNum;
+        }
+
+        // 스테이지 도착 처리
+        public void arrive() {
+            ++this.arrive;
+        }
+
+        // 스테이지 클리어 처리
+        public void clear() {
+            ++this.arrive;
+            ++this.clear;
+        }
+
+        // 실패율 계산 함수
+        public double fail() {
+            if (arrive == 0) {
+                return 0;
+            }
+            return (double) (arrive - clear) / arrive;
+        }
+
+        // 실패율 내림차순, 같다면 번호 오름차순 비교
+        @Override
+        public int compareTo(Stage s) {
+            int compare = Double.compare(this.fail(), s.fail());
+            if (compare == 0) {
+                return this.stageNum - s.getStageNum();
+            }
+            return compare;
+        }
+    }
 }
