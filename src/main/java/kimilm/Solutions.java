@@ -2,6 +2,7 @@ package kimilm;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Solutions {
     // https://programmers.co.kr/learn/courses/30/lessons/12901
@@ -625,5 +626,160 @@ public class Solutions {
         }
         // 리턴
         return count;
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/87389
+    public int 나머지가_1이_되는_수_찾기(int n) {
+        // (n - 1)을 만들 수 있는 약수들에서 1을 제외한 가장 작은 값
+        return getSubmultiple(n - 1).get(1);
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/42748
+    public int[] K번째수(int[] array, int[][] commands) {
+        // 정답 배열 선언
+        int n = commands.length;
+        int[] answer = new int[n];
+        // commands 갯수만큼
+        for (int i = 0; i < n; i++) {
+            int start = commands[i][0] - 1;
+            int end = commands[i][1];
+            int pick = commands[i][2] - 1;
+            // 시작부터 끝 범위까지 카피 후 정렬
+            int[] subArray = Arrays.copyOfRange(array, start, end);
+            Arrays.sort(subArray);
+            // 정답 배열에 담기
+            answer[i] = subArray[pick];
+        }
+        return answer;
+    }
+
+    // https://hanghaealgorithm.oopy.io/
+    public String 신대륙_발견(int month, int day) {
+        // 1-12월 각 날짜, 인덱스 계산 편하게 하기 위해 맨 앞에 0 삽입
+        int[] days = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        // 98일 - 이번달 남은 날짜
+        int left = 98 - days[month] + day;
+        month = nextMonth(month);
+        // 한달 총 날짜보다 남은 날이 많다면 반복
+        while (left > days[month]) {
+            // 한달만큼 빼고 다음달 설정
+            left -= days[month];
+            month = nextMonth(month);
+        }
+        // 종료일 저장
+        day = left;
+        // 스트링 리턴
+        return month + "월 " + day + "일";
+    }
+
+    // 다음달 계산기
+    public int nextMonth(int month) {
+        return ++month > 12 ? 1 : month;
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12921
+    public int 소수_찾기(int n) {
+        // 편한 인덱스 계산을 위해 범위를 +1
+        boolean[] primes = new boolean[n + 1];
+        // 0과 1은 소수가 아님
+        primes[0] = true;
+        primes[1] = true;
+        // 2부터 끝까지
+        for (int i = 2; i < primes.length; i++) {
+            // 소수가 아닌 수는 추가 계산 X
+            if (primes[i]) {
+                continue;
+            }
+            // 소수라면 해당 소수의 배수 모두 아님 처리하기
+            for (int j = 2; i * j < primes.length; j++) {
+                primes[i * j] = true;
+            }
+        }
+        // 남은것만 카운트
+        return (int) IntStream.range(0, primes.length)
+                .filter(i -> !primes[i])
+                .count();
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/42889
+    public int[] 실패율(int N, int[] stages) {
+        // Stage 배열 초기화
+        Stage[] game = new Stage[N];
+        for (int i = 0; i < N; i++) {
+            game[i] = new Stage(i + 1);
+        }
+        // 각 스테이지마다
+        for (int stage : stages) {
+            // 인덱스 계산을 위해 1 빼기
+            --stage;
+            // N + 1 입력, 마지막 스테이지까지 클리어한 사람
+            if (stage == game.length) {
+                --stage;
+                game[stage].clear();
+            }
+            // N 스테이지 도전중
+            else {
+                game[stage].arrive();
+            }
+            // N - 1 스테이지까지 클리어했음
+            for (int i = 0; i < stage; i++) {
+                game[i].clear();
+            }
+        }
+        // 실패율 내림차순, 같다면 번호 오름차순 정렬 후 스테이지 번호 배열로 변환하여 리턴
+        return Arrays.stream(game)
+                .sorted()
+                .mapToInt(Stage::getStageNum)
+                .toArray();
+    }
+
+    class Stage implements Comparable<Stage> {
+        // 스테이지 번호
+        int stageNum;
+        // 도달한 사람
+        int arrive;
+        // 클리어한 사람
+        int clear;
+
+        // 생성자
+        public Stage(int stageNum) {
+            this.stageNum = stageNum;
+            this.arrive = 0;
+            this.clear = 0;
+        }
+
+        // 스테이지 번호
+        public int getStageNum() {
+            return this.stageNum;
+        }
+
+        // 스테이지 도착 처리
+        public void arrive() {
+            ++this.arrive;
+        }
+
+        // 스테이지 클리어 처리
+        public void clear() {
+            ++this.arrive;
+            ++this.clear;
+        }
+
+        // 실패율 계산 함수
+        public double fail() {
+            if (arrive == 0) {
+                return 0;
+            }
+            return (double) (arrive - clear) / arrive;
+        }
+
+        // 실패율 내림차순, 같다면 번호 오름차순 비교
+        @Override
+        public int compareTo(Stage s) {
+            int compare = Double.compare(this.fail(), s.fail());
+            if (compare == 0) {
+                return this.stageNum - s.getStageNum();
+            }
+            return compare;
+        }
     }
 }

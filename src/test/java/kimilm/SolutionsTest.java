@@ -63,4 +63,30 @@ class SolutionsTest {
         List<Integer> result = solution.getSubmultiple(12);
         assertEquals(Arrays.asList(1, 2, 3, 4, 6, 12), result);
     }
+
+    @Test
+    void k번째수() {
+        int[] result = solution.K번째수(
+                new int[]{1, 5, 2, 6, 3, 7, 4},
+                new int[][]{
+                        {2, 5, 3},
+                        {4, 4, 1},
+                        {1, 7, 3}
+                });
+
+        assertEquals(new int[]{5, 6, 3}, result);
+    }
+
+    @Test
+    void hanghae() {
+        assertEquals("3월 5일", solution.신대륙_발견(11, 27));
+        assertEquals("9월 28일", solution.신대륙_발견(6, 22));
+        assertEquals("4월 26일", solution.신대륙_발견(1, 18));
+    }
+
+    @Test
+    void 소수_찾기() {
+        assertEquals(4, solution.소수_찾기(10));
+        assertEquals(3, solution.소수_찾기(5));
+    }
 }
