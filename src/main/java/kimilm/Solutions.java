@@ -651,4 +651,28 @@ public class Solutions {
         }
         return answer;
     }
+
+    // https://hanghaealgorithm.oopy.io/
+    public String 신대륙_발견(int month, int day) {
+        // 1-12월 각 날짜, 인덱스 계산 편하게 하기 위해 맨 앞에 0 삽입
+        int[] days = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        // 98일 - 이번달 남은 날짜
+        int left = 98 - days[month] + day;
+        month = nextMonth(month);
+        // 한달 총 날짜보다 남은 날이 많다면 반복
+        while (left > days[month]) {
+            // 한달만큼 빼고 다음달 설정
+            left -= days[month];
+            month = nextMonth(month);
+        }
+        // 종료일 저장
+        day = left;
+        // 스트링 리턴
+        return month + "월 " + day + "일";
+    }
+
+    // 다음달 계산기
+    public int nextMonth(int month) {
+        return ++month > 12 ? 1 : month;
+    }
 }

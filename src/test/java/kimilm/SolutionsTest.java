@@ -76,4 +76,11 @@ class SolutionsTest {
 
         assertEquals(new int[]{5, 6, 3}, result);
     }
+
+    @Test
+    void hanghae() {
+        assertEquals("3월 5일", solution.신대륙_발견(11, 27));
+        assertEquals("9월 28일", solution.신대륙_발견(6, 22));
+        assertEquals("4월 26일", solution.신대륙_발견(1, 18));
+    }
 }
