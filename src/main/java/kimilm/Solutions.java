@@ -605,4 +605,25 @@ public class Solutions {
         // 배열에 담아서 리턴
         return new int[]{max, min};
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12982
+    public int 예산(int[] d, int budget) {
+        // 부서별 신청 금액 오름차순 정렬
+        int[] requests = d.clone();
+        Arrays.sort(requests);
+        // 작은 금액부터
+        int count = 0;
+        for (int request : requests) {
+            // 예산 낭비
+            budget -= request;
+            // 남은 예산 없으면 탈출
+            if (budget < 0) {
+                break;
+            }
+            // 카운트 증가
+            ++count;
+        }
+        // 리턴
+        return count;
+    }
 }
