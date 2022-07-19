@@ -509,32 +509,121 @@ public class Solutions {
         // 3단계 new_id에서 마침표(.)가 2번 이상 연속된 부분을 하나의 마침표(.)로 치환합니다.
         new_id = new_id.replaceAll("\\.{2,}", ".");
         // 4단계 new_id에서 마침표(.)가 처음이나 끝에 위치한다면 제거합니다.
-        if(new_id.startsWith(".")) {
+        if (new_id.startsWith(".")) {
             new_id = new_id.substring(1);
         }
-        if(new_id.endsWith(".")) {
+        if (new_id.endsWith(".")) {
             new_id = new_id.substring(0, new_id.length() - 1);
         }
         // 5단계 new_id가 빈 문자열이라면, new_id에 "a"를 대입합니다.
-        if(new_id.isEmpty()) {
+        if (new_id.isEmpty()) {
             new_id = "a";
         }
         // 6단계 new_id의 길이가 16자 이상이면, new_id의 첫 15개의 문자를 제외한 나머지 문자들을 모두 제거합니다.
         //         만약 제거 후 마침표(.)가 new_id의 끝에 위치한다면 끝에 위치한 마침표(.) 문자를 제거합니다.
-        if(new_id.length() > 15) {
+        if (new_id.length() > 15) {
             new_id = new_id.substring(0, 15);
         }
-        if(new_id.endsWith(".")) {
+        if (new_id.endsWith(".")) {
             new_id = new_id.substring(0, new_id.length() - 1);
         }
         // 7단계 new_id의 길이가 2자 이하라면, new_id의 마지막 문자를 new_id의 길이가 3이 될 때까지 반복해서 끝에 붙입니다.
         if (new_id.length() < 3) {
-            while(new_id.length() != 3) {
+            while (new_id.length() != 3) {
                 new_id += new_id.charAt(new_id.length() - 1);
             }
         }
         // 리턴
         return new_id;
         // '.'이 2개 이상 -> "[.]{2,}", 시작이나 끝이 '.' -> "^[.]|[.]$"
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12928
+    public int 약수의_합(int n) {
+        // 약수를 구해서 모두 더하기
+        return getSubmultiple(n).stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    // 약수 구하기
+    public List<Integer> getSubmultiple(int n) {
+        // 자동 정렬이 되도록 트리셋 사용
+        Set<Integer> set = new TreeSet<>();
+        // 제곱근 이하까지만 계산하기
+        int sqrt = (int) Math.sqrt(n);
+        for (int i = 1; i <= sqrt; i++) {
+            // 나누어 떨어지면 나누는 수와 몫을 저장
+            if (n % i == 0) {
+                set.add(i);
+                set.add(n / i);
+            }
+        }
+        // 리스트로 바꿔서 리턴
+        return new ArrayList<>(set);
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/77884
+    public int 약수의_개수와_덧셈(int left, int right) {
+        int answer = 0;
+        // left 부터 right 까지
+        for (int i = left; i <= right; i++) {
+            // 위에서 만든 약수 구하기 함수
+            int count = getSubmultiple(i).size();
+            // 짝수면 더하고
+            if (count % 2 == 0) {
+                answer += i;
+            }
+            // 홀수면 빼기
+            else {
+                answer -= i;
+            }
+        }
+        return answer;
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12940
+    public int[] 최대공약수와_최소공배수(int n, int m) {
+        // 큰수 작은수로 구분
+        int high = Integer.max(n, m);
+        int low = Integer.min(n, m);
+        // 각각 약수 구하기
+        List<Integer> highSubmultiple = getSubmultiple(high);
+        List<Integer> lowSubmultiple = getSubmultiple(low);
+        // 최대공약수, 최소공배수
+        int max = 1;
+        int min;
+        // 작은수 약수만큼 반복
+        for (Integer value : lowSubmultiple) {
+            // 큰수쪽에서 포함하고있다면 최대공약수 바꾸기
+            if (highSubmultiple.contains(value)) {
+                max = Integer.max(max, value);
+            }
+        }
+        // 최소공배수 설정
+        min = high * low / max;
+        // 배열에 담아서 리턴
+        return new int[]{max, min};
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12982
+    public int 예산(int[] d, int budget) {
+        // 부서별 신청 금액 오름차순 정렬
+        int[] requests = d.clone();
+        Arrays.sort(requests);
+        // 작은 금액부터
+        int count = 0;
+        for (int request : requests) {
+            // 예산 낭비
+            budget -= request;
+            // 남은 예산 없으면 탈출
+            if (budget < 0) {
+                break;
+            }
+            // 카운트 증가
+            ++count;
+        }
+        // 리턴
+        return count;
     }
 }
