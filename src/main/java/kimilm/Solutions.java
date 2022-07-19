@@ -2,6 +2,7 @@ package kimilm;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Solutions {
     // https://programmers.co.kr/learn/courses/30/lessons/12901
@@ -674,5 +675,29 @@ public class Solutions {
     // 다음달 계산기
     public int nextMonth(int month) {
         return ++month > 12 ? 1 : month;
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/12921
+    public int 소수_찾기(int n) {
+        // 편한 인덱스 계산을 위해 범위를 +1
+        boolean[] primes = new boolean[n + 1];
+        // 0과 1은 소수가 아님
+        primes[0] = true;
+        primes[1] = true;
+        // 2부터 끝까지
+        for (int i = 2; i < primes.length; i++) {
+            // 소수가 아닌 수는 추가 계산 X
+            if (primes[i]) {
+                continue;
+            }
+            // 소수라면 해당 소수의 배수 모두 아님 처리하기
+            for (int j = 2; i * j < primes.length; j++) {
+                primes[i * j] = true;
+            }
+        }
+        // 남은것만 카운트
+        return (int) IntStream.range(0, primes.length)
+                .filter(i -> !primes[i])
+                .count();
     }
 }
