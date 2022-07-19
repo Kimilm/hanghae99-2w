@@ -626,4 +626,10 @@ public class Solutions {
         // 리턴
         return count;
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/87389
+    public int 나머지가_1이_되는_수_찾기(int n) {
+        // (n - 1)을 만들 수 있는 약수들에서 1을 제외한 가장 작은 값
+        return getSubmultiple(n - 1).get(1);
+    }
 }
