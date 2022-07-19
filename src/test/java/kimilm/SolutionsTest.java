@@ -63,4 +63,17 @@ class SolutionsTest {
         List<Integer> result = solution.getSubmultiple(12);
         assertEquals(Arrays.asList(1, 2, 3, 4, 6, 12), result);
     }
+
+    @Test
+    void k번째수() {
+        int[] result = solution.K번째수(
+                new int[]{1, 5, 2, 6, 3, 7, 4},
+                new int[][]{
+                        {2, 5, 3},
+                        {4, 4, 1},
+                        {1, 7, 3}
+                });
+
+        assertEquals(new int[]{5, 6, 3}, result);
+    }
 }

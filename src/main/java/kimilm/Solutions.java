@@ -632,4 +632,23 @@ public class Solutions {
         // (n - 1)을 만들 수 있는 약수들에서 1을 제외한 가장 작은 값
         return getSubmultiple(n - 1).get(1);
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/42748
+    public int[] K번째수(int[] array, int[][] commands) {
+        // 정답 배열 선언
+        int n = commands.length;
+        int[] answer = new int[n];
+        // commands 갯수만큼
+        for (int i = 0; i < n; i++) {
+            int start = commands[i][0] - 1;
+            int end = commands[i][1];
+            int pick = commands[i][2] - 1;
+            // 시작부터 끝 범위까지 카피 후 정렬
+            int[] subArray = Arrays.copyOfRange(array, start, end);
+            Arrays.sort(subArray);
+            // 정답 배열에 담기
+            answer[i] = subArray[pick];
+        }
+        return answer;
+    }
 }
