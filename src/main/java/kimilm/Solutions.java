@@ -796,4 +796,45 @@ public class Solutions {
         // 포켓몬 종류, 절반 중 작은거 리턴
         return Integer.min(pokemons.size(), half);
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/42862
+    public int 체육복(int n, int[] lost, int[] reserve) {
+        // 여벌옷 집합에 저장
+        Set<Integer> reserveSet = new HashSet<>();
+        for (int i : reserve) {
+            reserveSet.add(i);
+        }
+        // 도난여부 집합에 저장
+        Set<Integer> lostSet = new HashSet<>();
+        for (int i : lost) {
+            // 여벌 옷을 가지고 있었다면
+            if (reserveSet.contains(i)) {
+                // 가지고 있던 옷 사용
+                reserveSet.remove(i);
+            }
+            // 아니라면
+            else {
+                // 도난처리
+                lostSet.add(i);
+            }
+        }
+        // 빌려주기
+        int count = 0;
+        for (Integer integer : lostSet) {
+            // 앞사람부터 체크
+            if (reserveSet.contains(integer - 1)) {
+                // 빌려입기
+                reserveSet.remove(integer - 1);
+                ++count;
+            }
+            // 뒷사람 체크
+            else if (reserveSet.contains(integer + 1)) {
+                // 빌려입기
+                reserveSet.remove(integer + 1);
+                ++count;
+            }
+        }
+        // 결과 리턴
+        return n - lostSet.size() + count;
+    }
 }

@@ -89,4 +89,9 @@ class SolutionsTest {
         assertEquals(4, solution.소수_찾기(10));
         assertEquals(3, solution.소수_찾기(5));
     }
+
+    @Test
+    void 체육복() {
+        assertEquals(5, solution.체육복(5, new int[]{2, 4}, new int[]{1, 3, 5}));
+    }
 }
