@@ -1011,4 +1011,28 @@ public class Solutions {
         }
         return answer;
     }
+
+    // https://school.programmers.co.kr/learn/courses/30/lessons/12924
+    public int 숫자의_표현(int n) {
+        int count = 0;
+        // 1부터 n까지
+        for (int i = 1; i <= n; i++) {
+            int sum = 0;
+            // 1부터 증가시키면서 더함
+            for (int j = i; j <= n; j++) {
+                sum += j;
+                // 초과했다면 탈출
+                if (sum > n) {
+                    break;
+                }
+                // n과 같아졌다면 개수 증가
+                else if (sum == n) {
+                    ++count;
+                    break;
+                }
+            }
+        }
+        return count;
+        // "주어진 자연수를 연속된 자연수의 합으로 표현하는 방법의 수는 주어진 수의 홀수 약수의 개수와 같다" 라고 한다..
+    }
 }
