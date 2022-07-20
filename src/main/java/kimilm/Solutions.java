@@ -782,4 +782,18 @@ public class Solutions {
             return compare;
         }
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/1845
+    public int 폰켓몬(int[] nums) {
+        // 집합 선언
+        Set<Integer> pokemons = new HashSet<>();
+        // 가져갈 수 있는 포켓몬은 연구실에 있는 N마리의 절반까지
+        int half = nums.length / 2;
+        // 포켓몬 종류별로 담기
+        for (int num : nums) {
+            pokemons.add(num);
+        }
+        // 포켓몬 종류, 절반 중 작은거 리턴
+        return Integer.min(pokemons.size(), half);
+    }
 }
