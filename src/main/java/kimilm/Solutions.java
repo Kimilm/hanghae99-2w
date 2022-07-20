@@ -782,4 +782,171 @@ public class Solutions {
             return compare;
         }
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/1845
+    public int 폰켓몬(int[] nums) {
+        // 집합 선언
+        Set<Integer> pokemons = new HashSet<>();
+        // 가져갈 수 있는 포켓몬은 연구실에 있는 N마리의 절반까지
+        int half = nums.length / 2;
+        // 포켓몬 종류별로 담기
+        for (int num : nums) {
+            pokemons.add(num);
+        }
+        // 포켓몬 종류, 절반 중 작은거 리턴
+        return Integer.min(pokemons.size(), half);
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/42862
+    public int 체육복(int n, int[] lost, int[] reserve) {
+        // 여벌옷 집합에 저장
+        Set<Integer> reserveSet = new HashSet<>();
+        for (int i : reserve) {
+            reserveSet.add(i);
+        }
+        // 도난여부 집합에 저장
+        Set<Integer> lostSet = new HashSet<>();
+        for (int i : lost) {
+            // 여벌 옷을 가지고 있었다면
+            if (reserveSet.contains(i)) {
+                // 가지고 있던 옷 사용
+                reserveSet.remove(i);
+            }
+            // 아니라면
+            else {
+                // 도난처리
+                lostSet.add(i);
+            }
+        }
+        // 빌려주기
+        int count = 0;
+        for (Integer integer : lostSet) {
+            // 앞사람부터 체크
+            if (reserveSet.contains(integer - 1)) {
+                // 빌려입기
+                reserveSet.remove(integer - 1);
+                ++count;
+            }
+            // 뒷사람 체크
+            else if (reserveSet.contains(integer + 1)) {
+                // 빌려입기
+                reserveSet.remove(integer + 1);
+                ++count;
+            }
+        }
+        // 결과 리턴
+        return n - lostSet.size() + count;
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/17681
+    public String[] 비밀지도(int n, int[] arr1, int[] arr2) {
+        // 두 지도를 합칠 배열 선언
+        int[] map = new int[n];
+        for (int i = 0; i < n; i++) {
+            // or 비트연산으로 합침
+            map[i] = arr1[i] | arr2[i];
+        }
+        // 문자열을 n자리로 만들어줄 포맷 설정
+        String format = "%" + n + "s";
+        // 숫자 -> 문자열 변환하여 리턴
+        return Arrays.stream(map)
+                .mapToObj(num -> {
+                    // 숫자 -> 2진법 문자열
+                    String binary = Integer.toBinaryString(num);
+                    // "11" -> "   11" n자리 변환
+                    String formatted = String.format(format, binary);
+                    // 1은 #으로, 0은 공백으로 바꾸기
+                    return formatted.replaceAll("1", "#").replaceAll("0", " ");
+                })
+                .toArray(String[]::new);
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/67256
+    public String 키패드_누르기(int[] numbers, String hand) {
+        // 초기 손 위치, 오른손 #, 왼손
+        Point rightThumb = new Point(3, 2);
+        Point leftThumb = new Point(3, 0);
+        // 문자열 이어붙이기
+        StringBuilder sb = new StringBuilder();
+        // 어느손잡이
+        boolean flag = hand.equals("right");
+
+        for (int number : numbers) {
+            switch (number) {
+                // 1, 4, 7은 왼손으로 누름
+                case 1:
+                case 4:
+                case 7:
+                    sb.append("L");
+                    leftThumb.setPosition(number);
+                    break;
+                // 3, 6, 9는 오른손으로 누름
+                case 3:
+                case 6:
+                case 9:
+                    sb.append("R");
+                    rightThumb.setPosition(number);
+                    break;
+                // 2, 5, 8, 0은 가까운 손가락으로 누름
+                default:
+                    int compare = rightThumb.distance(number) - leftThumb.distance(number);
+                    // 거리가 같다면 주로 사용하는 손가락으로 누름
+                    if (compare == 0) {
+                        if (flag) {
+                            sb.append("R");
+                            rightThumb.setPosition(number);
+                        } else {
+                            sb.append("L");
+                            leftThumb.setPosition(number);
+                        }
+                    }
+                    // 오른손이 가깝다면
+                    else if (compare < 0) {
+                        sb.append("R");
+                        rightThumb.setPosition(number);
+                    }
+                    // 왼손이 가깝다면
+                    else {
+                        sb.append("L");
+                        leftThumb.setPosition(number);
+                    }
+                    break;
+            }
+        }
+        // 문자열로 리턴
+        return sb.toString();
+    }
+
+    class Point {
+        int x;
+        int y;
+
+        public Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        // 손가락 위치 조정 함수
+        public void setPosition(int n) {
+            int[] pos = calculatePosition(n);
+            this.x = pos[0];
+            this.y = pos[1];
+        }
+
+        // 번호와 손가락 사이 거리 계산 함수
+        public int distance(int n) {
+            int[] pos = calculatePosition(n);
+            return Math.abs(this.x - pos[0]) + Math.abs(this.y - pos[1]);
+        }
+
+        // 숫자를 xy 좌표로 바꿔주는 함수
+        private int[] calculatePosition(int n) {
+            --n;
+            // 0이 입력되면 위치 조정
+            if (n == -1) {
+                n = 10;
+            }
+            return new int[]{n / 3, n % 3};
+        }
+    }
 }

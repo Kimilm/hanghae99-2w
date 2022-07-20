@@ -89,4 +89,22 @@ class SolutionsTest {
         assertEquals(4, solution.소수_찾기(10));
         assertEquals(3, solution.소수_찾기(5));
     }
+
+    @Test
+    void 체육복() {
+        assertEquals(5, solution.체육복(5, new int[]{2, 4}, new int[]{1, 3, 5}));
+    }
+
+    @Test
+    void 비밀지도() {
+        assertEquals(
+                new String[]{"#####", "# # #", "### #", "# ##", "#####"},
+                solution.비밀지도(5, new int[]{9, 20, 28, 18, 11}, new int[]{30, 1, 21, 17, 28})
+        );
+    }
+
+    @Test
+    void 키패드_누르기() {
+        assertEquals("LRLLRRLLLRR", solution.키패드_누르기(new int[]{7, 0, 8, 2, 8, 3, 1, 5, 7, 6, 2}, "left"));
+    }
 }
