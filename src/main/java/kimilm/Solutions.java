@@ -949,4 +949,145 @@ public class Solutions {
             return new int[]{n / 3, n % 3};
         }
     }
+
+    // https://school.programmers.co.kr/learn/courses/30/lessons/12939
+    public String 최댓값과_최솟값(String s) {
+        // 공백을 기준으로 분리해서 숫자로 바꾸고 정렬하여 리스트로 변환
+        List<Integer> list = Arrays.stream(s.split(" "))
+                .map(Integer::parseInt)
+                .sorted()
+                .collect(Collectors.toList());
+        // 시작 인덱스: 최솟값, 끝 인덱스: 최댓값
+        return list.get(0) + " " + list.get(list.size() - 1);
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/17682
+    public int 다트게임(String dartResult) {
+        // 점수들 담기
+        String[] scores = dartResult.split("[SDT*#]+");
+        // 옵션들 담기
+        String[] games = dartResult.split("[0-9]+");
+        // 계산한 점수 저장용 스택
+        Stack<Integer> stack = new Stack();
+
+        for (int i = 0; i < scores.length; i++) {
+            // 점수 int 변환
+            int score = Integer.parseInt(scores[i]);
+            // 보너스와 옵션을 분리
+            String[] game = games[i + 1].split("");
+            // 2제곱
+            if (game[0].equals("D")) {
+                score *= score;
+            }
+            // 3제곱
+            else if (game[0].equals("T")) {
+                score *= score * score;
+            }
+            // 옵션이 있다면
+            if (game.length == 2) {
+                // 스타상
+                if (game[1].equals("*")) {
+                    // 지금 점수 2배
+                    score *= 2;
+                    // 이전 게임이 존재한다면
+                    if (!stack.isEmpty()) {
+                        // 이전 게임 점수도 2배
+                        stack.push(stack.pop() * 2);
+                    }
+                }
+                // 아차상
+                else {
+                    // 지금 점수 -1배
+                    score *= -1;
+                }
+            }
+            // 스택에 저장
+            stack.push(score);
+        }
+        // 스택에 저장된 점수들 모두 더해서 리턴
+        int answer = 0;
+        while (!stack.isEmpty()) {
+            answer += stack.pop();
+        }
+        return answer;
+    }
+
+    // https://school.programmers.co.kr/learn/courses/30/lessons/12924
+    public int 숫자의_표현(int n) {
+        int count = 0;
+        // 1부터 n까지
+        for (int i = 1; i <= n; i++) {
+            int sum = 0;
+            // 1부터 증가시키면서 더함
+            for (int j = i; j <= n; j++) {
+                sum += j;
+                // 초과했다면 탈출
+                if (sum > n) {
+                    break;
+                }
+                // n과 같아졌다면 개수 증가
+                else if (sum == n) {
+                    ++count;
+                    break;
+                }
+            }
+        }
+        return count;
+        // "주어진 자연수를 연속된 자연수의 합으로 표현하는 방법의 수는 주어진 수의 홀수 약수의 개수와 같다" 라고 한다..
+    }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/64061
+    public int 크레인_인형뽑기_게임(int[][] board, int[] moves) {
+        int n = board.length;
+        // 인형바구니
+        Stack<Integer> stack = new Stack<>();
+        // 인형 높이 배열
+        int[] heads = new int[n];
+        // 인형 높이 탐색
+        for (int i = 0; i < n; i++) {
+            boolean flag = true;
+            for (int j = 0; j < n; j++) {
+                // 인형 높이 저장
+                if (board[j][i] != 0) {
+                    heads[i] = j;
+                    flag = false;
+                    break;
+                }
+            }
+            // 만약 인형이 없다면 없다고 표시
+            if (flag) {
+                heads[i] = n;
+            }
+        }
+        // moves 배열만큼
+        int answer = 0;
+        for (int move : moves) {
+            // 인덱스 조정
+            --move;
+            // 인형이 없음
+            if (heads[move] == n) {
+                continue;
+            }
+            // 저장해둔 인형 높이 가져오기
+            int head = heads[move]++;
+            // 인형 꺼내기
+            int doll = board[head][move];
+            board[head][move] = 0;
+            // 바구니가 비었다면
+            if (stack.isEmpty()) {
+                stack.push(doll);
+                continue;
+            }
+            // 바구니의 제일 위에 있는 인형이 같은 인형이라면
+            if (stack.peek() == doll) {
+                stack.pop();
+                answer += 2;
+            }
+            // 이도 저도 아니라면
+            else {
+                stack.push(doll);
+            }
+        }
+        return answer;
+    }
 }

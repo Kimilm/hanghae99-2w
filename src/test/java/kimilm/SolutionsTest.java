@@ -107,4 +107,29 @@ class SolutionsTest {
     void 키패드_누르기() {
         assertEquals("LRLLRRLLLRR", solution.키패드_누르기(new int[]{7, 0, 8, 2, 8, 3, 1, 5, 7, 6, 2}, "left"));
     }
+
+    @Test
+    void 다트게임() {
+        assertEquals(37, solution.다트게임("1S2D*3T"));
+        assertEquals(9, solution.다트게임("1D2S#10S"));
+        assertEquals(3, solution.다트게임("1D2S0T"));
+        assertEquals(23, solution.다트게임("1S*2T*3S"));
+        assertEquals(5, solution.다트게임("1D#2S*3S"));
+        assertEquals(-4, solution.다트게임("1T2D3D#"));
+        assertEquals(59, solution.다트게임("1D2S3T*"));
+    }
+
+    @Test
+    void 크레인_인형뽑기_게임() {
+        assertEquals(4, solution.크레인_인형뽑기_게임(
+                new int[][]{
+                        {0, 0, 0, 0, 0},
+                        {0, 0, 1, 0, 3},
+                        {0, 2, 5, 0, 1},
+                        {4, 2, 4, 4, 2},
+                        {3, 5, 1, 3, 1}
+                },
+                new int[]{1, 5, 3, 5, 1, 2, 1, 4}
+        ));
+    }
 }
