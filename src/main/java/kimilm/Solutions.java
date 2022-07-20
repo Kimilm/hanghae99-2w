@@ -837,4 +837,27 @@ public class Solutions {
         // 결과 리턴
         return n - lostSet.size() + count;
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/17681
+    public String[] 비밀지도(int n, int[] arr1, int[] arr2) {
+        // 두 지도를 합칠 배열 선언
+        int[] map = new int[n];
+        for (int i = 0; i < n; i++) {
+            // or 비트연산으로 합침
+            map[i] = arr1[i] | arr2[i];
+        }
+        // 문자열을 n자리로 만들어줄 포맷 설정
+        String format = "%" + n + "s";
+        // 숫자 -> 문자열 변환하여 리턴
+        return Arrays.stream(map)
+                .mapToObj(num -> {
+                    // 숫자 -> 2진법 문자열
+                    String binary = Integer.toBinaryString(num);
+                    // "11" -> "   11" n자리 변환
+                    String formatted = String.format(format, binary);
+                    // 1은 #으로, 0은 공백으로 바꾸기
+                    return formatted.replaceAll("1", "#").replaceAll("0", " ");
+                })
+                .toArray(String[]::new);
+    }
 }

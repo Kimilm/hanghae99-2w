@@ -94,4 +94,12 @@ class SolutionsTest {
     void 체육복() {
         assertEquals(5, solution.체육복(5, new int[]{2, 4}, new int[]{1, 3, 5}));
     }
+
+    @Test
+    void 비밀지도() {
+        assertEquals(
+                new String[]{"#####", "# # #", "### #", "# ##", "#####"},
+                solution.비밀지도(5, new int[]{9, 20, 28, 18, 11}, new int[]{30, 1, 21, 17, 28})
+        );
+    }
 }
