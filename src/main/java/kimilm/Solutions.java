@@ -1035,4 +1035,59 @@ public class Solutions {
         return count;
         // "주어진 자연수를 연속된 자연수의 합으로 표현하는 방법의 수는 주어진 수의 홀수 약수의 개수와 같다" 라고 한다..
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/64061
+    public int 크레인_인형뽑기_게임(int[][] board, int[] moves) {
+        int n = board.length;
+        // 인형바구니
+        Stack<Integer> stack = new Stack<>();
+        // 인형 높이 배열
+        int[] heads = new int[n];
+        // 인형 높이 탐색
+        for (int i = 0; i < n; i++) {
+            boolean flag = true;
+            for (int j = 0; j < n; j++) {
+                // 인형 높이 저장
+                if (board[j][i] != 0) {
+                    heads[i] = j;
+                    flag = false;
+                    break;
+                }
+            }
+            // 만약 인형이 없다면 없다고 표시
+            if (flag) {
+                heads[i] = n;
+            }
+        }
+        // moves 배열만큼
+        int answer = 0;
+        for (int move : moves) {
+            // 인덱스 조정
+            --move;
+            // 인형이 없음
+            if (heads[move] == n) {
+                continue;
+            }
+            // 저장해둔 인형 높이 가져오기
+            int head = heads[move]++;
+            // 인형 꺼내기
+            int doll = board[head][move];
+            board[head][move] = 0;
+            // 바구니가 비었다면
+            if (stack.isEmpty()) {
+                stack.push(doll);
+                continue;
+            }
+            // 바구니의 제일 위에 있는 인형이 같은 인형이라면
+            if (stack.peek() == doll) {
+                stack.pop();
+                answer += 2;
+            }
+            // 이도 저도 아니라면
+            else {
+                stack.push(doll);
+            }
+        }
+        return answer;
+    }
 }
