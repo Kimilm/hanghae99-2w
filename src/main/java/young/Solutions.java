@@ -578,10 +578,10 @@ public class Solutions {
 
     public int[] 실패율(int N, int[] stages) {
         int[] answer = new int[N];
-        double[] stage = new double[N+1];      // 스테이지마다 머물러 있는 사용자수를 담을 배열
+        double[] stage = new double[N + 1];      // 스테이지마다 머물러 있는 사용자수를 담을 배열
         // stage배열에 머물러있는 사용자수를 담는다 , 인덱스값이 스테이지번호
-        for(int i : stages){
-            if(i == N+1){
+        for (int i : stages) {
+            if (i == N + 1) {
                 continue;
             }
             stage[i]++;
@@ -589,28 +589,28 @@ public class Solutions {
         // 실패율을 계산해 담을 list
         ArrayList<Double> fail = new ArrayList<Double>();
         //스테이지에 도달한 명수
-        double num =stages.length;
+        double num = stages.length;
         //다음 스테이지로 올라갈때 줄어드는 사용자수를 계산하기 위해 사용
         double tmp = 0;
         //실패율을 구한 후 다시 stage배열에 담고, fail 리스트에도 담아준다.
-        for(int i=1; i<stage.length; i++){
+        for (int i = 1; i < stage.length; i++) {
             tmp = stage[i];
             // 도달한 사용자 수가 0 일때, 실패율도 0
-            if(num == 0){
-                stage[i]=0;
-            }else{
-                stage[i] = stage[i]/num;
+            if (num == 0) {
+                stage[i] = 0;
+            } else {
+                stage[i] = stage[i] / num;
                 num = num - tmp;
             }
             fail.add(stage[i]);
         }
         //  fail 리스트를 내림차순으로 정렬해준다.
-        Collections.sort(fail,Collections.reverseOrder());
+        Collections.sort(fail, Collections.reverseOrder());
         //정렬된 fail리스트 값과 stage값을 비교해서 같으면 stage의 인덱스번호(스테이지번호)를 가져옴으로써
         //실패율이 높은 순으로 answer배열에 넣어준다.
-        for(int i=0; i<fail.size(); i++){
-            for(int j=1; j<stage.length; j++){
-                if(fail.get(i) == stage[j]){
+        for (int i = 0; i < fail.size(); i++) {
+            for (int j = 1; j < stage.length; j++) {
+                if (fail.get(i) == stage[j]) {
                     answer[i] = j;
                     stage[j] = -1;
                     break;
@@ -619,25 +619,271 @@ public class Solutions {
         }
         return answer;
     }
+
+    public int 체육복(int n, int[] lost, int[] reserve) {
+        int answer = n - lost.length;
+
+        Arrays.sort(lost);
+        Arrays.sort(reserve);
+
+        // 여벌 체육복을 가져온 학생이 도난당한 경우
+        for (int i = 0; i < lost.length; i++) {
+            for (int j = 0; j < reserve.length; j++) {
+                if (lost[i] == reserve[j]) {
+                    answer++;
+                    lost[i] = -1;
+                    reserve[j] = -1;
+                    break;
+                }
+            }
+        }
+        // 도난당한 학생에게 체육복 빌려주는 경우
+        for (int i = 0; i < lost.length; i++) {
+            for (int j = 0; j < reserve.length; j++) {
+                if ((lost[i] - 1 == reserve[j]) || (lost[i] + 1 == reserve[j])) {
+                    answer++;
+                    reserve[j] = -1;
+                    break;
+                }
+            }
+        }
+        return answer;
+    }
+
+    public int 폰켓몬(int[] nums) {
+        int answer = 0;
+        HashSet<Integer> set = new HashSet<Integer>();
+        for (int i = 0; i < nums.length; i++) {
+            set.add(nums[i]);
+        }
+
+        if (set.size() > nums.length / 2) {
+            answer = nums.length / 2;
+        } else {
+            answer = set.size();
+        }
+
+        return answer;
+    }
+
+    public String[] 비밀지도(int n, int[] arr1, int[] arr2) {
+        long[] puzzle1 = new long[n];
+        long[] puzzle2 = new long[n];
+//        2진수로 변경 후 10진수 실수로 변경
+        for (int i = 0; i < n; i++) {
+            puzzle1[i] = Long.parseLong(Integer.toBinaryString(arr1[i]));
+        }
+        for (int i = 0; i < n; i++) {
+            puzzle2[i] = Long.parseLong(Integer.toBinaryString(arr2[i]));
+        }
+        for (int i = 0; i < n; i++) {
+            puzzle1[i] += puzzle2[i];
+        }
+//        10진수 문자열로 변경
+        String[] puzzle = new String[puzzle1.length];
+        for (int i = 0; i < puzzle1.length; i++) {
+            puzzle[i] = String.valueOf(puzzle1[i]);
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (puzzle[i].length() < n) {
+                int length = n - puzzle[i].length();
+                puzzle[i] = puzzle[i].replace("1", "#");
+                puzzle[i] = puzzle[i].replace("2", "#");
+                puzzle[i] = puzzle[i].replace("0", " ");
+                for (int j = 0; j < length; j++) {
+                    puzzle[i] = " " + puzzle[i];
+                }
+            } else {
+                puzzle[i] = puzzle[i].replace("1", "#");
+                puzzle[i] = puzzle[i].replace("2", "#");
+                puzzle[i] = puzzle[i].replace("0", " ");
+            }
+        }
+        return puzzle;
+    }
+
+    public String 키패드(int[] numbers, String hand) {
+        StringBuilder sb = new StringBuilder();
+        int Left = 10;
+
+        int Right = 12;
+
+        for(int number : numbers) {
+//            1,4,7은 왼쪽
+            if(number == 1 || number == 4 || number == 7) {
+                sb.append("L");
+                Left = number;
+//                3,6,9는 오른쪽
+            } else if(number == 3 || number == 6 || number == 9) {
+                sb.append("R");
+                Right = number;
+            } else {
+//                왼쪽손으로부터거리 오른손으로부터거리
+                int leftLength = getLength(Left, number);
+                int rightLength = getLength(Right, number);
+
+                if(leftLength > rightLength) {
+                    sb.append("R");
+                    Right = number;
+                } else if(leftLength < rightLength) {
+                    sb.append("L");
+                    Left = number;
+                } else {
+                    if(hand.equals("right")) {
+                        sb.append("R");
+                        Right = number;
+                    } else {
+                        sb.append("L");
+                        Left = number;
+                    }
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+    public int getLength(int hand, int number) {
+
+        // 숫자 0의 경우 11로 치환
+        hand = (hand == 0) ? 11 : hand;
+        number = (number == 0) ? 11 : number;
+//        X축 몫 = 가로축 위치 (세로)
+//        y축 나머지 = 세로축 거리 (가로)
+        int x = (hand - 1) / 3;
+        int y = (hand - 1) % 3;
+        int numberX = number / 3;
+//        목표를 검사하는건 중앙 선 뿐이므로 1 고정
+        int numberY = 1;
+//          X축끼리 거리와 Y축끼리 거리를 더함
+        return Math.abs(x-numberX) + Math.abs(y-numberY);
+    }
+    public int 다트(String dartResult) {
+        int answer = 0;
+        int[] Scores = new int[3];
+        // 각 점수의 기본 처음에 주는 점수 저장용
+        String Exscore = "";
+        // 몇번째 점수인지 확인
+        int Index = 0;
+
+        for(int i = 0;i<dartResult.length();i++){
+            switch(dartResult.charAt(i)){
+                //  S는 1제곱
+                case 'S':
+                    Scores[Index] = (int)Math.pow(Integer.parseInt(Exscore),1);
+                    Index++;
+                    Exscore ="";
+                    break;
+                //  D는 2제곱
+                case 'D':
+                    Scores[Index] = (int)Math.pow(Integer.parseInt(Exscore),2);
+                    Index++;
+                    Exscore ="";
+                    break;
+                //  T는 3제곱
+                case 'T':
+                    Scores[Index] = (int)Math.pow(Integer.parseInt(Exscore),3);
+                    Index++;
+                    Exscore ="";
+                    break;
+                // *인 경우는 자신과 이전의 점수 *2, idx는 S,D,T 처리 후 증가하기 때문에 idx-1, idx-2 후 *2
+                case '*':
+                    Scores[Index-1]*=2;
+                    if(Index >1) Scores[Index-2]*=2;
+                    break;
+                //  #은 자신의 점수를 음수로 만든다.
+                case '#':
+                    Scores[Index-1]*=-1;
+                    break;
+                //  그 외의 정수들은 Exscore 변수에 저장해 둔다.
+                default:
+                    Exscore+=String.valueOf(dartResult.charAt(i));
+                    break;
+            }
+        }
+
+        //  위 과정을 통해 구한 각 횟수의 점수를 모두 더하면 정답.
+        for(int i =0;i<Scores.length;i++){
+            answer+=Scores[i];
+        }
+
+        return answer;
+    }
+    public String 최댓값최소값(String s) {
+        String answer = "";
+
+        String[] formm = s.split(" ");
+        long[] forint = new long[formm.length];
+        for (int i = 0; i< formm.length; i++){
+            forint[i] = Long.parseLong(formm[i]);
+        }
+        Arrays.sort(forint);
+        answer = forint[0]+" "+forint[forint.length-1];
+
+        return answer;
+    }
+    public int 숫자의표현(int n) {
+//        자기자신 미리 추가
+        int answer = 1;
+//         1부터 더하기
+        for (int i = 1; i<n; i++){
+            int hap = i;
+
+            for(int j=i+1; j<n; j++){
+                hap += j;
+//          j+i가 n값과 같으면 1추
+                if(hap==n){
+                    answer++;
+                    break;
+                } else if(hap>n){
+                    break;
+                }
+            }
+        }return answer;
+    }
+
+    public int 인형뽑기(int[][] board, int[] moves) {
+       int answer = 0;
+        StringBuilder sb = new StringBuilder();
+//        움직인 횟수만큼 진행
+        for (int move : moves) {
+//            무브[i]-1 는 인덱스위치
+            int attack = move - 1;
+//            세로칸 만큼 진행하는데 해당 칸이 0이면 다음 줄로
+            for (int j = 0; j < board.length; j++) {
+                if (board[j][attack] != 0) {
+//                    해당 값을 sb에 추가 하고 해당 칸을 0으로
+                    sb.append(" " + board[j][attack]);
+                    board[j][attack] = 0;
+                    break;
+                }
+            }
+
+        }
+//        여기까지 담기
+
+        String doll = sb.toString();
+        String[] Dolls = doll.split(" ");
+        ArrayList<String> dolls2 = new ArrayList<>();
+        for (String i: Dolls) {
+            dolls2.add(i);
+        }
+        int length = dolls2.size();
+//
+        for (int i = 0; i < length-1; i++) {
+            if (dolls2.get(i).equals(dolls2.get(i + 1))){
+                dolls2.remove(i);
+                dolls2.remove(i);
+                length -= 2;
+                answer += 2;
+                if (i != 0){
+                    i-= 2;
+                } else {
+                    i--;
+                }
+            }
+        }
+        return answer;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
