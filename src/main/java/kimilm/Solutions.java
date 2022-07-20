@@ -960,4 +960,55 @@ public class Solutions {
         // 시작 인덱스: 최솟값, 끝 인덱스: 최댓값
         return list.get(0) + " " + list.get(list.size() - 1);
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/17682
+    public int 다트게임(String dartResult) {
+        // 점수들 담기
+        String[] scores = dartResult.split("[SDT*#]+");
+        // 옵션들 담기
+        String[] games = dartResult.split("[0-9]+");
+        // 계산한 점수 저장용 스택
+        Stack<Integer> stack = new Stack();
+
+        for (int i = 0; i < scores.length; i++) {
+            // 점수 int 변환
+            int score = Integer.parseInt(scores[i]);
+            // 보너스와 옵션을 분리
+            String[] game = games[i + 1].split("");
+            // 2제곱
+            if (game[0].equals("D")) {
+                score *= score;
+            }
+            // 3제곱
+            else if (game[0].equals("T")) {
+                score *= score * score;
+            }
+            // 옵션이 있다면
+            if (game.length == 2) {
+                // 스타상
+                if (game[1].equals("*")) {
+                    // 지금 점수 2배
+                    score *= 2;
+                    // 이전 게임이 존재한다면
+                    if (!stack.isEmpty()) {
+                        // 이전 게임 점수도 2배
+                        stack.push(stack.pop() * 2);
+                    }
+                }
+                // 아차상
+                else {
+                    // 지금 점수 -1배
+                    score *= -1;
+                }
+            }
+            // 스택에 저장
+            stack.push(score);
+        }
+        // 스택에 저장된 점수들 모두 더해서 리턴
+        int answer = 0;
+        while (!stack.isEmpty()) {
+            answer += stack.pop();
+        }
+        return answer;
+    }
 }
