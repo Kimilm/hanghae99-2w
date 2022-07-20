@@ -949,4 +949,15 @@ public class Solutions {
             return new int[]{n / 3, n % 3};
         }
     }
+
+    // https://school.programmers.co.kr/learn/courses/30/lessons/12939
+    public String 최댓값과_최솟값(String s) {
+        // 공백을 기준으로 분리해서 숫자로 바꾸고 정렬하여 리스트로 변환
+        List<Integer> list = Arrays.stream(s.split(" "))
+                .map(Integer::parseInt)
+                .sorted()
+                .collect(Collectors.toList());
+        // 시작 인덱스: 최솟값, 끝 인덱스: 최댓값
+        return list.get(0) + " " + list.get(list.size() - 1);
+    }
 }
