@@ -860,4 +860,93 @@ public class Solutions {
                 })
                 .toArray(String[]::new);
     }
+
+    // https://programmers.co.kr/learn/courses/30/lessons/67256
+    public String 키패드_누르기(int[] numbers, String hand) {
+        // 초기 손 위치, 오른손 #, 왼손
+        Point rightThumb = new Point(3, 2);
+        Point leftThumb = new Point(3, 0);
+        // 문자열 이어붙이기
+        StringBuilder sb = new StringBuilder();
+        // 어느손잡이
+        boolean flag = hand.equals("right");
+
+        for (int number : numbers) {
+            switch (number) {
+                // 1, 4, 7은 왼손으로 누름
+                case 1:
+                case 4:
+                case 7:
+                    sb.append("L");
+                    leftThumb.setPosition(number);
+                    break;
+                // 3, 6, 9는 오른손으로 누름
+                case 3:
+                case 6:
+                case 9:
+                    sb.append("R");
+                    rightThumb.setPosition(number);
+                    break;
+                // 2, 5, 8, 0은 가까운 손가락으로 누름
+                default:
+                    int compare = rightThumb.distance(number) - leftThumb.distance(number);
+                    // 거리가 같다면 주로 사용하는 손가락으로 누름
+                    if (compare == 0) {
+                        if (flag) {
+                            sb.append("R");
+                            rightThumb.setPosition(number);
+                        } else {
+                            sb.append("L");
+                            leftThumb.setPosition(number);
+                        }
+                    }
+                    // 오른손이 가깝다면
+                    else if (compare < 0) {
+                        sb.append("R");
+                        rightThumb.setPosition(number);
+                    }
+                    // 왼손이 가깝다면
+                    else {
+                        sb.append("L");
+                        leftThumb.setPosition(number);
+                    }
+                    break;
+            }
+        }
+        // 문자열로 리턴
+        return sb.toString();
+    }
+
+    class Point {
+        int x;
+        int y;
+
+        public Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        // 손가락 위치 조정 함수
+        public void setPosition(int n) {
+            int[] pos = calculatePosition(n);
+            this.x = pos[0];
+            this.y = pos[1];
+        }
+
+        // 번호와 손가락 사이 거리 계산 함수
+        public int distance(int n) {
+            int[] pos = calculatePosition(n);
+            return Math.abs(this.x - pos[0]) + Math.abs(this.y - pos[1]);
+        }
+
+        // 숫자를 xy 좌표로 바꿔주는 함수
+        private int[] calculatePosition(int n) {
+            --n;
+            // 0이 입력되면 위치 조정
+            if (n == -1) {
+                n = 10;
+            }
+            return new int[]{n / 3, n % 3};
+        }
+    }
 }

@@ -102,4 +102,9 @@ class SolutionsTest {
                 solution.비밀지도(5, new int[]{9, 20, 28, 18, 11}, new int[]{30, 1, 21, 17, 28})
         );
     }
+
+    @Test
+    void 키패드_누르기() {
+        assertEquals("LRLLRRLLLRR", solution.키패드_누르기(new int[]{7, 0, 8, 2, 8, 3, 1, 5, 7, 6, 2}, "left"));
+    }
 }
